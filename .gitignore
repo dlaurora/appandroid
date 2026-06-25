@@ -1,0 +1,46 @@
+# Gradle and Android build outputs
+.gradle/
+.kotlin/
+build/
+**/build/
+out/
+local.properties
+.env
+.env.*
+!.env.example
+*.iml
+*.apk
+*.ap_
+*.aab
+*.idsig
+
+# Android Studio / IDE files
+.idea/
+.navigation/
+captures/
+externalNativeBuild/
+.cxx/
+
+# Local SDKs, tools, and generated machine state
+.tools/
+.android/
+android-sdk/
+sdk/
+
+# Signing and secrets
+*.jks
+*.keystore
+*.p12
+*.pem
+*.key
+keystore.properties
+signing.properties
+release-signing.properties
+play-publishing.properties
+
+# Local reports that may contain real user data
+reports/
+
+# OS files
+.DS_Store
+Thumbs.db

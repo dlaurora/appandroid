@@ -1,0 +1,4 @@
+interface:
+  display_name: "TechQuote Android"
+  short_description: "Android technical rules for TechQuote"
+  default_prompt: "Use $techquote-android before changing TechQuote Android project files."

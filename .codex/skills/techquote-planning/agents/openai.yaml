@@ -1,0 +1,4 @@
+interface:
+  display_name: "TechQuote Planning"
+  short_description: "Plan intake rules for TechQuote"
+  default_prompt: "Use $techquote-planning when turning TechQuote business plans into implementation specs."

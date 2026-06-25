@@ -1,0 +1,4 @@
+interface:
+  display_name: "TechQuote Security Readiness"
+  short_description: "Security, privacy, legal, and release readiness review for TechQuote"
+  default_prompt: "Use $techquote-security-readiness before closing TechQuote phases or changing privacy-sensitive Android behavior."
