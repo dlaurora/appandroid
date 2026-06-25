@@ -41,6 +41,41 @@ play-publishing.properties
 # Local reports that may contain real user data
 /reports/
 
+# Codex, AI assistants, and local planning artifacts
+.codex/*
+!.codex/skills/
+!.codex/skills/**
+.codex/attachments/
+.codex/cache/
+.codex/logs/
+.codex/sessions/
+.codex/tmp/
+.codex/history/
+.agents/
+.ai/
+.aider*
+.claude/
+.continue/
+.cursor/
+.windsurf/
+docs/superpowers/
+*.chat.md
+*.prompt.md
+
+# Local diagnostics and temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*.hprof
+hs_err_pid*
+replay_pid*
+.cache/
+tmp/
+temp/
+
 # OS files
 .DS_Store
 Thumbs.db
