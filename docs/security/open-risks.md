@@ -7,4 +7,4 @@
 | R-003 | FileProvider scope is not defined because sharing is not implemented | Medium | Open | Android implementer | Define and test when export/share phase starts | No until sharing exists |
 | R-004 | Google Play Data Safety draft must be validated against final dependencies | High | Open | Release owner | Review before Play submission | Yes before publication |
 | R-005 | Support email, legal entity, jurisdiction, and public privacy URL are not final | High | Open | Project owner | Resolve before Play publication | Yes before publication |
-| R-006 | In-app legal and privacy screens are not implemented yet | High | Open | Android implementer | Implement during accepted Settings or Legal UI phase before publication | Yes before publication |
+| R-006 | In-app legal and privacy screens are draft-only and need professional review | High | Open | Project owner | Review and finalize content before commercial publication | Yes before publication |

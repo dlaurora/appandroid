@@ -4,6 +4,10 @@
 
 Phase 0 defines UX guardrails only. It does not implement settings, legal, client, catalog, quote, report, PDF, backup, import, or business screens.
 
+## Phase 1 Scope
+
+Phase 1 implements visual-only Compose screens, reusable UI components, navigation, and previews with safe mock data. It does not implement persistence, CRUD, pricing rules, PDF generation, backups, imports, file sharing, or external integrations.
+
 ## Principles
 
 - Prefer clear, calm operational UI over marketing copy.

@@ -39,7 +39,7 @@ release-signing.properties
 play-publishing.properties
 
 # Local reports that may contain real user data
-reports/
+/reports/
 
 # OS files
 .DS_Store
