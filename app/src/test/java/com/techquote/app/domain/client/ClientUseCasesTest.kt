@@ -160,6 +160,41 @@ class ClientUseCasesTest {
     }
 
     @Test
+    fun restoreRejectsDuplicateActiveClient() = runTest {
+        val repository = FakeClientRepository()
+        repository.save(client(id = "archived", phone = "+54 11 5555 0100", isArchived = true))
+        repository.save(client(id = "active", phone = "54 11 5555-0100", isArchived = false))
+
+        val result = RestoreClientUseCase(repository, clock = { 3000L }).invoke("archived")
+
+        assertTrue(result is ClientOperationResult.Duplicate)
+        assertTrue(repository.getClient("archived")!!.isArchived)
+    }
+
+    @Test
+    fun createReturnsStorageErrorWhenRepositorySaveFails() = runTest {
+        val repository = FakeClientRepository(failOnSave = true)
+
+        val result = CreateClientUseCase(
+            repository = repository,
+            validator = ClientValidator(),
+            idGenerator = { "client-id-1" },
+            clock = { 1000L },
+        ).invoke(
+            ClientInput(
+                fullName = "Cliente Demo Norte",
+                businessName = "",
+                phone = "",
+                email = "",
+                address = "",
+                notes = "",
+            ),
+        )
+
+        assertEquals(ClientOperationResult.StorageError, result)
+    }
+
+    @Test
     fun searchMatchesNameBusinessPhoneOrEmail() = runTest {
         val repository = FakeClientRepository()
         repository.save(client(id = "north", fullName = "Cliente Demo Norte", email = "north@example.test"))
@@ -200,7 +235,9 @@ private fun client(
     isArchived = isArchived,
 )
 
-private class FakeClientRepository : ClientRepository {
+private class FakeClientRepository(
+    private val failOnSave: Boolean = false,
+) : ClientRepository {
     private val clients = MutableStateFlow<List<Client>>(emptyList())
 
     override fun observeClients(includeArchived: Boolean, query: String): Flow<List<Client>> {
@@ -227,6 +264,7 @@ private class FakeClientRepository : ClientRepository {
     }
 
     override suspend fun save(client: Client) {
+        if (failOnSave) error("Simulated storage failure")
         clients.value = clients.value.filterNot { it.id == client.id } + client
     }
 

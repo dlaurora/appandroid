@@ -99,6 +99,24 @@ class ClientViewModelTest {
     }
 
     @Test
+    fun formViewModelShowsStorageErrorAndClearsSavingWhenSaveFails() = runTest(dispatcher) {
+        repository = FakeClientRepository(failOnSave = true)
+        val viewModel = ClientFormViewModel(
+            repository = repository,
+            createClient = CreateClientUseCase(repository, ClientValidator(), idGenerator = { "client-1" }, clock = { 1000L }),
+            updateClient = UpdateClientUseCase(repository, ClientValidator(), clock = { 2000L }),
+            savedStateHandle = SavedStateHandle(),
+        )
+
+        viewModel.onFullNameChange("Cliente Demo Norte")
+        viewModel.onSave()
+        advanceUntilIdle()
+
+        assertEquals("No se pudo guardar el cliente.", viewModel.uiState.value.errorMessage)
+        assertFalse(viewModel.uiState.value.isSaving)
+    }
+
+    @Test
     fun detailViewModelArchivesAndRestoresClient() = runTest(dispatcher) {
         repository.save(client(id = "client-1"))
         val viewModel = ClientDetailViewModel(
@@ -143,7 +161,9 @@ private fun client(
     isArchived = isArchived,
 )
 
-private class FakeClientRepository : ClientRepository {
+private class FakeClientRepository(
+    private val failOnSave: Boolean = false,
+) : ClientRepository {
     private val clients = MutableStateFlow<List<Client>>(emptyList())
 
     override fun observeClients(includeArchived: Boolean, query: String): Flow<List<Client>> {
@@ -170,6 +190,7 @@ private class FakeClientRepository : ClientRepository {
     }
 
     override suspend fun save(client: Client) {
+        if (failOnSave) error("Simulated storage failure")
         clients.value = clients.value.filterNot { it.id == client.id } + client
     }
 

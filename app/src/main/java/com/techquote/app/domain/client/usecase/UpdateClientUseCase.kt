@@ -16,24 +16,28 @@ class UpdateClientUseCase @Inject constructor(
     private val clock: () -> Long,
 ) {
     suspend operator fun invoke(id: String, input: ClientInput): ClientOperationResult<Client> {
-        val existing = repository.getClient(id) ?: return ClientOperationResult.NotFound
-        val validation = validator.validate(input)
-        if (!validation.isValid) return ClientOperationResult.ValidationError(validation.errors)
-        val duplicate = repository.findDuplicate(input, excludeId = id)
-        if (duplicate != null) return ClientOperationResult.Duplicate(duplicate.id)
+        return try {
+            val existing = repository.getClient(id) ?: return ClientOperationResult.NotFound
+            val validation = validator.validate(input)
+            if (!validation.isValid) return ClientOperationResult.ValidationError(validation.errors)
+            val duplicate = repository.findDuplicate(input, excludeId = id)
+            if (duplicate != null) return ClientOperationResult.Duplicate(duplicate.id)
 
-        val candidate = existing.copy(
-            fullName = ClientTextNormalizer.cleanDisplay(input.fullName),
-            businessName = ClientTextNormalizer.cleanDisplay(input.businessName),
-            phone = ClientTextNormalizer.cleanDisplay(input.phone),
-            email = ClientTextNormalizer.cleanDisplay(input.email),
-            address = ClientTextNormalizer.cleanDisplay(input.address),
-            notes = input.notes.trim(),
-        )
-        val changed = candidate.businessFields() != existing.businessFields()
-        val updated = if (changed) candidate.copy(updatedAt = clock()) else candidate
-        repository.save(updated)
-        return ClientOperationResult.Success(updated)
+            val candidate = existing.copy(
+                fullName = ClientTextNormalizer.cleanDisplay(input.fullName),
+                businessName = ClientTextNormalizer.cleanDisplay(input.businessName),
+                phone = ClientTextNormalizer.cleanDisplay(input.phone),
+                email = ClientTextNormalizer.cleanDisplay(input.email),
+                address = ClientTextNormalizer.cleanDisplay(input.address),
+                notes = input.notes.trim(),
+            )
+            val changed = candidate.businessFields() != existing.businessFields()
+            val updated = if (changed) candidate.copy(updatedAt = clock()) else candidate
+            repository.save(updated)
+            ClientOperationResult.Success(updated)
+        } catch (_: Exception) {
+            ClientOperationResult.StorageError
+        }
     }
 
     private fun Client.businessFields(): List<String> {

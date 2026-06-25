@@ -15,16 +15,20 @@ interface ClientDao {
         SELECT * FROM clients
         WHERE isArchived = :isArchived
           AND (
-            :query = ''
-            OR normalizedFullName LIKE '%' || lower(:query) || '%'
-            OR normalizedBusinessName LIKE '%' || lower(:query) || '%'
-            OR normalizedPhone LIKE '%' || :query || '%'
-            OR normalizedEmail LIKE '%' || lower(:query) || '%'
+            (:textQuery = '' AND :phoneQuery = '')
+            OR normalizedFullName LIKE '%' || :textQuery || '%'
+            OR normalizedBusinessName LIKE '%' || :textQuery || '%'
+            OR (:phoneQuery != '' AND normalizedPhone LIKE '%' || :phoneQuery || '%')
+            OR normalizedEmail LIKE '%' || :textQuery || '%'
           )
         ORDER BY updatedAt DESC, createdAt DESC
         """,
     )
-    fun observeClients(isArchived: Boolean, query: String): Flow<List<ClientEntity>>
+    fun observeClients(
+        isArchived: Boolean,
+        textQuery: String,
+        phoneQuery: String,
+    ): Flow<List<ClientEntity>>
 
     @Query("SELECT * FROM clients WHERE id = :id LIMIT 1")
     fun observeClient(id: String): Flow<ClientEntity?>

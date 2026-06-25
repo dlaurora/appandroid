@@ -12,9 +12,13 @@ class ArchiveClientUseCase @Inject constructor(
     private val clock: () -> Long,
 ) {
     suspend operator fun invoke(id: String): ClientOperationResult<Client> {
-        val existing = repository.getClient(id) ?: return ClientOperationResult.NotFound
-        val archived = existing.copy(isArchived = true, updatedAt = clock())
-        repository.save(archived)
-        return ClientOperationResult.Success(archived)
+        return try {
+            val existing = repository.getClient(id) ?: return ClientOperationResult.NotFound
+            val archived = existing.copy(isArchived = true, updatedAt = clock())
+            repository.save(archived)
+            ClientOperationResult.Success(archived)
+        } catch (_: Exception) {
+            ClientOperationResult.StorageError
+        }
     }
 }

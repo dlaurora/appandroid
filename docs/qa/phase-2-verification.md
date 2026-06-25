@@ -39,3 +39,4 @@ Report opened: `app/build/reports/lint-results-debug.txt`.
 - Release initially failed lint vital with `FullBackupContent` errors because the backup XML tried to exclude the `database` domain while also limiting includes to `file`.
 - The backup XML was corrected to use database exclusions without contradictory file-only includes.
 - Lint initially reported two `VisibleForTests` warnings from production ViewModel secondary constructors; those constructors were removed and tests now create `SavedStateHandle` directly.
+- Independent review found formatted phone search, restore duplicate protection, and storage error handling gaps; all three were fixed with regression tests before final Phase 2 verification.

@@ -20,6 +20,7 @@ Phase 2 tests cover local client persistence, validation, use cases, ViewModels,
 - Entity/domain/UI mappers.
 - Use cases.
 - ViewModel loading, content, validation, save, archive, restore, and error states.
+- Storage failure maps to user-facing error state without leaving save in progress.
 
 ## Room Integration Tests
 
@@ -29,6 +30,7 @@ Phase 2 tests cover local client persistence, validation, use cases, ViewModels,
 - Archive client.
 - Restore client.
 - Search clients.
+- Search formatted phone input against normalized phone storage.
 - Empty result handling.
 - Migration from schema version 1.
 - Data persists across database reopen.

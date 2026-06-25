@@ -13,7 +13,8 @@ class ClientLocalDataSource @Inject constructor(
     fun observeClients(includeArchived: Boolean, query: String): Flow<List<Client>> {
         return dao.observeClients(
             isArchived = includeArchived,
-            query = normalizedQuery(query),
+            textQuery = ClientTextNormalizer.normalizeSearch(query),
+            phoneQuery = ClientTextNormalizer.normalizePhone(query),
         ).map { entities -> entities.map { it.toDomain() } }
     }
 
@@ -37,14 +38,5 @@ class ClientLocalDataSource @Inject constructor(
             normalizedEmail = ClientTextNormalizer.normalizeEmail(input.email),
             excludeId = excludeId.orEmpty(),
         )?.toDomain()
-    }
-
-    private fun normalizedQuery(query: String): String {
-        val phoneQuery = ClientTextNormalizer.normalizePhone(query)
-        return if (phoneQuery.length >= 3 && phoneQuery.length >= ClientTextNormalizer.normalizeSearch(query).length) {
-            phoneQuery
-        } else {
-            ClientTextNormalizer.normalizeSearch(query)
-        }
     }
 }

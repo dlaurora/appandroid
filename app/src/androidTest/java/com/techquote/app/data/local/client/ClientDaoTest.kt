@@ -34,7 +34,7 @@ class ClientDaoTest {
     fun insertAndReadActiveClient() = runBlocking {
         dao.upsert(entity(id = "client-1", fullName = "Cliente Demo Norte"))
 
-        val clients = dao.observeClients(isArchived = false, query = "").first()
+        val clients = dao.observeClients(isArchived = false, textQuery = "", phoneQuery = "").first()
 
         assertEquals(listOf("client-1"), clients.map { it.id })
     }
@@ -44,10 +44,10 @@ class ClientDaoTest {
         dao.upsert(entity(id = "client-1", fullName = "Cliente Demo Norte", email = "north@example.test"))
         dao.upsert(entity(id = "client-2", businessName = "Empresa Demo Sur", phone = "55550123"))
 
-        assertEquals(listOf("client-1"), dao.observeClients(false, "norte").first().map { it.id })
-        assertEquals(listOf("client-2"), dao.observeClients(false, "empresa").first().map { it.id })
-        assertEquals(listOf("client-2"), dao.observeClients(false, "0123").first().map { it.id })
-        assertEquals(listOf("client-1"), dao.observeClients(false, "north@example.test").first().map { it.id })
+        assertEquals(listOf("client-1"), dao.observeClients(false, "norte", "").first().map { it.id })
+        assertEquals(listOf("client-2"), dao.observeClients(false, "empresa", "").first().map { it.id })
+        assertEquals(listOf("client-2"), dao.observeClients(false, "", "0123").first().map { it.id })
+        assertEquals(listOf("client-1"), dao.observeClients(false, "north@example.test", "").first().map { it.id })
     }
 
     @Test
@@ -55,11 +55,11 @@ class ClientDaoTest {
         dao.upsert(entity(id = "client-1", fullName = "Cliente Demo Norte"))
 
         dao.setArchived(id = "client-1", isArchived = true, updatedAt = 2000L)
-        assertEquals(emptyList<String>(), dao.observeClients(isArchived = false, query = "").first().map { it.id })
-        assertEquals(listOf("client-1"), dao.observeClients(isArchived = true, query = "").first().map { it.id })
+        assertEquals(emptyList<String>(), dao.observeClients(isArchived = false, textQuery = "", phoneQuery = "").first().map { it.id })
+        assertEquals(listOf("client-1"), dao.observeClients(isArchived = true, textQuery = "", phoneQuery = "").first().map { it.id })
 
         dao.setArchived(id = "client-1", isArchived = false, updatedAt = 3000L)
-        assertEquals(listOf("client-1"), dao.observeClients(isArchived = false, query = "").first().map { it.id })
+        assertEquals(listOf("client-1"), dao.observeClients(isArchived = false, textQuery = "", phoneQuery = "").first().map { it.id })
     }
 
     @Test
