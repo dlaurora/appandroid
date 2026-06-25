@@ -37,6 +37,19 @@ The implemented catalog features may also store:
 
 Catalog data must not intentionally contain personal data unless the user enters it.
 
+The implemented quote features may also store:
+
+- quote numbers;
+- client references and client display-name snapshots;
+- quote titles and descriptions;
+- service/product/manual line item snapshots;
+- quantities, unit prices, discounts, tax labels, tax rates, subtotals, and totals;
+- notes;
+- terms and conditions entered by the user;
+- quote status and archive state.
+
+Quote data may contain personal or commercial information depending on what the user enters.
+
 ## Where Data Is Stored
 
 Implemented records are stored locally on the user's device in the app's private Room database. TechQuote does not transmit this data to a developer server in the current MVP.
@@ -64,7 +77,7 @@ The source Android manifest declares no Android permissions in the current MVP.
 
 ## Retention And Deletion
 
-Client records currently support logical archive/restore. Catalog records currently support logical deactivate/restore. Physical deletion inside the app is not implemented unless a future accepted phase adds it.
+Client records currently support logical archive/restore. Catalog records currently support logical deactivate/restore. Quote records currently support logical archive/restore. Physical deletion inside the app is not implemented unless a future accepted phase adds it.
 
 Users can remove local app data through Android system app settings or by uninstalling the app. Uninstalling or clearing app data may permanently remove local TechQuote data from the device.
 
@@ -78,7 +91,7 @@ Users are responsible for having authorization to enter third-party personal or 
 
 ## Future Changes
 
-Future cloud, account, analytics, payment, export, sharing, backup/import, photo, PDF, or external integration features require policy updates before release. Any Google Play Data Safety declaration must match the app behavior, this policy, in-app disclosures, permissions, and dependency behavior.
+Future report, cloud, account, analytics, payment, export, sharing, backup/import, photo, PDF, or external integration features require policy updates before release. Any Google Play Data Safety declaration must match the app behavior, this policy, in-app disclosures, permissions, and dependency behavior.
 
 ## Contact
 

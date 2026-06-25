@@ -4,7 +4,7 @@
 
 Draft. Must be validated against final app behavior and all dependencies before Google Play submission.
 
-## Current Implemented Behavior Through Phase 2
+## Current Implemented Behavior Through Phase 4
 
 - No accounts.
 - No declared Android permissions.
@@ -12,16 +12,18 @@ Draft. Must be validated against final app behavior and all dependencies before 
 - No analytics.
 - No advertising SDK.
 - No external network transmission implemented.
-- Local Room persistence exists for client records.
+- Local Room persistence exists for client, catalog, and quote records.
 - Client records can contain names, business names, phone numbers, emails, addresses, and notes entered by the user.
-- Client records stay on device in app-private storage unless future code explicitly exports or shares them.
+- Catalog records can contain service/product names, descriptions, SKU values, categories, prices, and quantities entered by the user.
+- Quote records can contain client references, client display-name snapshots, quote numbers, titles, descriptions, line item snapshots, quantities, prices, discounts, tax labels, tax rates, subtotals, totals, notes, terms, statuses, and archive state.
+- Implemented records stay on device in app-private storage unless future code explicitly exports or shares them.
 - Room database files are excluded from Auto Backup and Data Extraction Rules during the current local-only phase.
 
-## Phase 3 Intended Behavior
+## Phase 4 Implemented Behavior
 
-Users may enter service and product/spare-part catalog data, including item names, descriptions, SKU, categories, prices, and quantities. Intended storage remains local on-device in app-private Room storage.
+Users may create local quotes from active clients and catalog/manual items. Quote totals are calculated locally with integer arithmetic. Quote duplication, status transitions, and archive/restore are local-only.
 
-Phase 3 must not add accounts, external transmission, analytics, advertising, sync, backup/import, sharing, permissions, PDFs, photos, or FileProvider behavior.
+Phase 4 does not add accounts, external transmission, analytics, advertising, sync, backup/import, sharing, permissions, PDFs, photos, or FileProvider behavior.
 
 ## Third-Party Code Review
 

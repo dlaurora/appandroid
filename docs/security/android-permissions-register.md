@@ -2,13 +2,13 @@
 
 ## Current Manifest Review
 
-As of Phase 3, `app/src/main/AndroidManifest.xml` declares no `<uses-permission>` entries.
+As of Phase 4, `app/src/main/AndroidManifest.xml` declares no `<uses-permission>` entries.
 
 Generated merged manifests include `com.techquote.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION`, which is added by AndroidX build/dependency manifest merging for dynamic receiver protection. TechQuote does not declare dangerous Android platform permissions and does not request runtime permissions.
 
 | Permission | Functional reason | Screen or flow | Alternative evaluated | Data accessed | Risk | Final decision |
 | --- | --- | --- | --- | --- | --- | --- |
-| None | No permission required for offline local client and catalog management | App launch, navigation, Phase 2 client CRUD, and Phase 3 catalog CRUD in app-private storage | Keep app permission-free | No restricted Android permission data | Low | Keep no permissions |
+| None | No permission required for offline local client, catalog, and quote management | App launch, navigation, Phase 2 client CRUD, Phase 3 catalog CRUD, and Phase 4 quote CRUD in app-private storage | Keep app permission-free | No restricted Android permission data | Low | Keep no permissions |
 
 ## Generated Permission Note
 

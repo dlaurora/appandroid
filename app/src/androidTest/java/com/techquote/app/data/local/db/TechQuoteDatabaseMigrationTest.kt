@@ -24,7 +24,16 @@ class TechQuoteDatabaseMigrationTest {
             close()
         }
 
-        helper.runMigrationsAndValidate(TEST_DB, 2, true, *TechQuoteDatabase.Migrations)
+        helper.runMigrationsAndValidate(TEST_DB, 2, true, TechQuoteDatabase.Migration1To2)
+    }
+
+    @Test
+    fun migratesFromVersionTwoToVersionThree() {
+        helper.createDatabase(TEST_DB, 2).apply {
+            close()
+        }
+
+        helper.runMigrationsAndValidate(TEST_DB, 3, true, TechQuoteDatabase.Migration2To3)
     }
 
     private companion object {

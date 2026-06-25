@@ -13,7 +13,7 @@ Release blockers before publication:
 
 ## Service Scope
 
-TechQuote is a local Android productivity tool for technicians and small service workflows. Current implemented features include local client management and a local catalog of services and products/spare parts.
+TechQuote is a local Android productivity tool for technicians and small service workflows. Current implemented features include local client management, a local catalog of services and products/spare parts, and local quote preparation with deterministic monetary calculations.
 
 TechQuote is not a fiscal invoicing system, accounting system, legal advice service, tax advice service, professional certification system, contract generator, payment processor, or substitute for official documents required by local authorities.
 
@@ -24,17 +24,18 @@ The user is responsible for:
 - verifying client information entered into the app;
 - verifying service, product, SKU, category, price, quantity, tax, discount, and commercial information;
 - keeping catalog values current and accurate;
-- confirming that any future quote, report, export, or shared document is correct before using it;
+- confirming that every quote is correct before using it;
+- confirming that any future report, export, or shared document is correct before using it;
 - complying with applicable laws and professional obligations;
 - protecting device access;
 - maintaining backups once backup/export features exist;
 - having authorization to enter personal or third-party business data.
 
-Catalog values are user-managed reference data. They are not guaranteed to be current, complete, legally compliant, or suitable for a specific job.
+Catalog values and quotes are user-managed business data. They are not guaranteed to be current, complete, legally compliant, tax compliant, or suitable for a specific job.
 
 ## Availability And Data Recovery
 
-The current MVP works locally on the device. Backup/import and cloud sync are not implemented. TechQuote does not currently guarantee recovery of data lost through device loss, damage, replacement, reset, app uninstall, app data clearing, or user error.
+The current MVP works locally on the device. Backup/import, PDF export, document sharing, and cloud sync are not implemented. TechQuote does not currently guarantee recovery of data lost through device loss, damage, replacement, reset, app uninstall, app data clearing, or user error.
 
 ## Prohibited Use
 

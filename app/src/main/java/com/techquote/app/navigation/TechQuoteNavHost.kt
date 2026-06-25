@@ -188,18 +188,48 @@ fun TechQuoteNavHost() {
         composable(TechQuoteRoutes.Quotes) {
             QuotesListRoute(
                 onNavigateBack = { navController.navigateUp() },
-                onOpenQuote = { navController.navigate(TechQuoteRoutes.QuoteDetail) },
+                onOpenQuote = { quoteId -> navController.navigate(TechQuoteRoutes.quoteDetail(quoteId)) },
                 onCreateQuote = { navController.navigate(TechQuoteRoutes.QuoteForm) },
+                onOpenArchived = { navController.navigate(TechQuoteRoutes.QuotesArchived) },
             )
         }
-        composable(TechQuoteRoutes.QuoteDetail) {
+        composable(TechQuoteRoutes.QuotesArchived) {
+            QuotesListRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onOpenQuote = { quoteId -> navController.navigate(TechQuoteRoutes.quoteDetail(quoteId)) },
+                onCreateQuote = { navController.navigate(TechQuoteRoutes.QuoteForm) },
+                onOpenArchived = { navController.navigateUp() },
+                showArchived = true,
+            )
+        }
+        composable(
+            route = TechQuoteRoutes.QuoteDetail,
+            arguments = listOf(navArgument(TechQuoteRoutes.QuoteIdArg) { type = NavType.StringType }),
+        ) {
             QuoteDetailRoute(
                 onNavigateBack = { navController.navigateUp() },
-                onEditQuote = { navController.navigate(TechQuoteRoutes.QuoteForm) },
+                onEditQuote = { quoteId -> navController.navigate(TechQuoteRoutes.quoteEdit(quoteId)) },
+                onDuplicatedQuote = { quoteId -> navController.navigate(TechQuoteRoutes.quoteDetail(quoteId)) },
             )
         }
         composable(TechQuoteRoutes.QuoteForm) {
-            QuoteFormRoute(onNavigateBack = { navController.navigateUp() })
+            QuoteFormRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onSaved = { quoteId ->
+                    navController.navigate(TechQuoteRoutes.quoteDetail(quoteId)) {
+                        popUpTo(TechQuoteRoutes.Quotes)
+                    }
+                },
+            )
+        }
+        composable(
+            route = TechQuoteRoutes.QuoteEdit,
+            arguments = listOf(navArgument(TechQuoteRoutes.QuoteIdArg) { type = NavType.StringType }),
+        ) {
+            QuoteFormRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onSaved = { quoteId -> navController.navigate(TechQuoteRoutes.quoteDetail(quoteId)) },
+            )
         }
         composable(TechQuoteRoutes.Reports) {
             ReportsListRoute(

@@ -75,14 +75,14 @@ fun DashboardScreen(
     ) { padding ->
         ScreenContent(contentPadding = padding) {
             Text(
-                text = "Operación local en modo demo",
+                text = "Operación local-first. El resumen mensual todavía es visual.",
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
 
             SectionHeader(
                 title = "Resumen mensual",
-                subtitle = "Datos ficticios para validar el diseño visual.",
+                subtitle = "Indicadores ficticios hasta que exista una fase de métricas reales.",
             )
             DashboardSummaryCard(summary = summary)
 
@@ -109,8 +109,8 @@ fun DashboardScreen(
             SectionHeader(title = "Recorridos principales")
             ListItemCard(
                 title = "Presupuestos",
-                subtitle = "Listado, detalle y formulario visual.",
-                metadata = "Sin cálculos ni PDF en Fase 1.",
+                subtitle = "Listado, detalle, formulario y cálculos locales.",
+                metadata = "Sin PDF, envío externo ni integraciones en Fase 4.",
                 actionLabel = "Abrir",
                 onClick = onQuotes,
             )
@@ -123,7 +123,7 @@ fun DashboardScreen(
             )
             ListItemCard(
                 title = "Configuración",
-                subtitle = "Preferencias visuales sin persistencia.",
+                subtitle = "Preferencias visuales y acceso a documentos locales.",
                 actionLabel = "Abrir",
                 onClick = onSettings,
             )

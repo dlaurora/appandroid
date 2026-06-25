@@ -1,0 +1,791 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "0385407ca96bccc93210ab9f9a7fb503",
+    "entities": [
+      {
+        "tableName": "clients",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `fullName` TEXT NOT NULL, `businessName` TEXT NOT NULL, `phone` TEXT NOT NULL, `email` TEXT NOT NULL, `address` TEXT NOT NULL, `notes` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `isArchived` INTEGER NOT NULL, `normalizedFullName` TEXT NOT NULL, `normalizedBusinessName` TEXT NOT NULL, `normalizedPhone` TEXT NOT NULL, `normalizedEmail` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fullName",
+            "columnName": "fullName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "businessName",
+            "columnName": "businessName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phone",
+            "columnName": "phone",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "address",
+            "columnName": "address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isArchived",
+            "columnName": "isArchived",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedFullName",
+            "columnName": "normalizedFullName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedBusinessName",
+            "columnName": "normalizedBusinessName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedPhone",
+            "columnName": "normalizedPhone",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedEmail",
+            "columnName": "normalizedEmail",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_clients_isArchived",
+            "unique": false,
+            "columnNames": [
+              "isArchived"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_clients_isArchived` ON `${TABLE_NAME}` (`isArchived`)"
+          },
+          {
+            "name": "index_clients_normalizedFullName",
+            "unique": false,
+            "columnNames": [
+              "normalizedFullName"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_clients_normalizedFullName` ON `${TABLE_NAME}` (`normalizedFullName`)"
+          },
+          {
+            "name": "index_clients_normalizedBusinessName",
+            "unique": false,
+            "columnNames": [
+              "normalizedBusinessName"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_clients_normalizedBusinessName` ON `${TABLE_NAME}` (`normalizedBusinessName`)"
+          },
+          {
+            "name": "index_clients_normalizedPhone",
+            "unique": false,
+            "columnNames": [
+              "normalizedPhone"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_clients_normalizedPhone` ON `${TABLE_NAME}` (`normalizedPhone`)"
+          },
+          {
+            "name": "index_clients_normalizedEmail",
+            "unique": false,
+            "columnNames": [
+              "normalizedEmail"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_clients_normalizedEmail` ON `${TABLE_NAME}` (`normalizedEmail`)"
+          }
+        ]
+      },
+      {
+        "tableName": "service_catalog_items",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `defaultUnitPriceMinor` INTEGER, `defaultQuantityThousandths` INTEGER, `category` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `normalizedName` TEXT NOT NULL, `normalizedDescription` TEXT NOT NULL, `normalizedCategory` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "defaultUnitPriceMinor",
+            "columnName": "defaultUnitPriceMinor",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "defaultQuantityThousandths",
+            "columnName": "defaultQuantityThousandths",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isActive",
+            "columnName": "isActive",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedName",
+            "columnName": "normalizedName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedDescription",
+            "columnName": "normalizedDescription",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedCategory",
+            "columnName": "normalizedCategory",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_service_catalog_items_isActive",
+            "unique": false,
+            "columnNames": [
+              "isActive"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_service_catalog_items_isActive` ON `${TABLE_NAME}` (`isActive`)"
+          },
+          {
+            "name": "index_service_catalog_items_normalizedName",
+            "unique": false,
+            "columnNames": [
+              "normalizedName"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_service_catalog_items_normalizedName` ON `${TABLE_NAME}` (`normalizedName`)"
+          },
+          {
+            "name": "index_service_catalog_items_normalizedCategory",
+            "unique": false,
+            "columnNames": [
+              "normalizedCategory"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_service_catalog_items_normalizedCategory` ON `${TABLE_NAME}` (`normalizedCategory`)"
+          }
+        ]
+      },
+      {
+        "tableName": "product_catalog_items",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `sku` TEXT NOT NULL, `defaultUnitPriceMinor` INTEGER, `defaultQuantityThousandths` INTEGER, `category` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `normalizedName` TEXT NOT NULL, `normalizedDescription` TEXT NOT NULL, `normalizedSku` TEXT NOT NULL, `normalizedCategory` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sku",
+            "columnName": "sku",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "defaultUnitPriceMinor",
+            "columnName": "defaultUnitPriceMinor",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "defaultQuantityThousandths",
+            "columnName": "defaultQuantityThousandths",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isActive",
+            "columnName": "isActive",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedName",
+            "columnName": "normalizedName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedDescription",
+            "columnName": "normalizedDescription",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedSku",
+            "columnName": "normalizedSku",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedCategory",
+            "columnName": "normalizedCategory",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_product_catalog_items_isActive",
+            "unique": false,
+            "columnNames": [
+              "isActive"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_product_catalog_items_isActive` ON `${TABLE_NAME}` (`isActive`)"
+          },
+          {
+            "name": "index_product_catalog_items_normalizedName",
+            "unique": false,
+            "columnNames": [
+              "normalizedName"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_product_catalog_items_normalizedName` ON `${TABLE_NAME}` (`normalizedName`)"
+          },
+          {
+            "name": "index_product_catalog_items_normalizedSku",
+            "unique": false,
+            "columnNames": [
+              "normalizedSku"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_product_catalog_items_normalizedSku` ON `${TABLE_NAME}` (`normalizedSku`)"
+          },
+          {
+            "name": "index_product_catalog_items_normalizedCategory",
+            "unique": false,
+            "columnNames": [
+              "normalizedCategory"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_product_catalog_items_normalizedCategory` ON `${TABLE_NAME}` (`normalizedCategory`)"
+          }
+        ]
+      },
+      {
+        "tableName": "quotes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `quoteNumber` TEXT NOT NULL, `clientId` TEXT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `status` TEXT NOT NULL, `issueDate` TEXT NOT NULL, `validUntil` TEXT NOT NULL, `subtotalMinor` INTEGER NOT NULL, `discountType` TEXT NOT NULL, `discountValue` INTEGER NOT NULL, `taxEnabled` INTEGER NOT NULL, `taxLabel` TEXT NOT NULL, `taxRateBasisPoints` INTEGER NOT NULL, `taxAmountMinor` INTEGER NOT NULL, `totalMinor` INTEGER NOT NULL, `notes` TEXT NOT NULL, `termsAndConditions` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `isArchived` INTEGER NOT NULL, `normalizedQuoteNumber` TEXT NOT NULL, `normalizedTitle` TEXT NOT NULL, `normalizedStatus` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`clientId`) REFERENCES `clients`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quoteNumber",
+            "columnName": "quoteNumber",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "clientId",
+            "columnName": "clientId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "issueDate",
+            "columnName": "issueDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "validUntil",
+            "columnName": "validUntil",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subtotalMinor",
+            "columnName": "subtotalMinor",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "discountType",
+            "columnName": "discountType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "discountValue",
+            "columnName": "discountValue",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "taxEnabled",
+            "columnName": "taxEnabled",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "taxLabel",
+            "columnName": "taxLabel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "taxRateBasisPoints",
+            "columnName": "taxRateBasisPoints",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "taxAmountMinor",
+            "columnName": "taxAmountMinor",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalMinor",
+            "columnName": "totalMinor",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "termsAndConditions",
+            "columnName": "termsAndConditions",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isArchived",
+            "columnName": "isArchived",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedQuoteNumber",
+            "columnName": "normalizedQuoteNumber",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedTitle",
+            "columnName": "normalizedTitle",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedStatus",
+            "columnName": "normalizedStatus",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_quotes_quoteNumber",
+            "unique": true,
+            "columnNames": [
+              "quoteNumber"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_quotes_quoteNumber` ON `${TABLE_NAME}` (`quoteNumber`)"
+          },
+          {
+            "name": "index_quotes_clientId",
+            "unique": false,
+            "columnNames": [
+              "clientId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_quotes_clientId` ON `${TABLE_NAME}` (`clientId`)"
+          },
+          {
+            "name": "index_quotes_isArchived",
+            "unique": false,
+            "columnNames": [
+              "isArchived"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_quotes_isArchived` ON `${TABLE_NAME}` (`isArchived`)"
+          },
+          {
+            "name": "index_quotes_status",
+            "unique": false,
+            "columnNames": [
+              "status"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_quotes_status` ON `${TABLE_NAME}` (`status`)"
+          },
+          {
+            "name": "index_quotes_updatedAt",
+            "unique": false,
+            "columnNames": [
+              "updatedAt"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_quotes_updatedAt` ON `${TABLE_NAME}` (`updatedAt`)"
+          },
+          {
+            "name": "index_quotes_issueDate",
+            "unique": false,
+            "columnNames": [
+              "issueDate"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_quotes_issueDate` ON `${TABLE_NAME}` (`issueDate`)"
+          },
+          {
+            "name": "index_quotes_normalizedQuoteNumber",
+            "unique": false,
+            "columnNames": [
+              "normalizedQuoteNumber"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_quotes_normalizedQuoteNumber` ON `${TABLE_NAME}` (`normalizedQuoteNumber`)"
+          },
+          {
+            "name": "index_quotes_normalizedTitle",
+            "unique": false,
+            "columnNames": [
+              "normalizedTitle"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_quotes_normalizedTitle` ON `${TABLE_NAME}` (`normalizedTitle`)"
+          },
+          {
+            "name": "index_quotes_normalizedStatus",
+            "unique": false,
+            "columnNames": [
+              "normalizedStatus"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_quotes_normalizedStatus` ON `${TABLE_NAME}` (`normalizedStatus`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "clients",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "clientId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "quote_line_items",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `quoteId` TEXT NOT NULL, `type` TEXT NOT NULL, `sourceCatalogItemId` TEXT, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `quantityThousandths` INTEGER NOT NULL, `unitPriceMinor` INTEGER NOT NULL, `discountType` TEXT NOT NULL, `discountValue` INTEGER NOT NULL, `totalMinor` INTEGER NOT NULL, `sortOrder` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`quoteId`) REFERENCES `quotes`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quoteId",
+            "columnName": "quoteId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceCatalogItemId",
+            "columnName": "sourceCatalogItemId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quantityThousandths",
+            "columnName": "quantityThousandths",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unitPriceMinor",
+            "columnName": "unitPriceMinor",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "discountType",
+            "columnName": "discountType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "discountValue",
+            "columnName": "discountValue",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalMinor",
+            "columnName": "totalMinor",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sortOrder",
+            "columnName": "sortOrder",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_quote_line_items_quoteId",
+            "unique": false,
+            "columnNames": [
+              "quoteId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_quote_line_items_quoteId` ON `${TABLE_NAME}` (`quoteId`)"
+          },
+          {
+            "name": "index_quote_line_items_sortOrder",
+            "unique": false,
+            "columnNames": [
+              "sortOrder"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_quote_line_items_sortOrder` ON `${TABLE_NAME}` (`sortOrder`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "quotes",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "quoteId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "quote_number_counters",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`year` TEXT NOT NULL, `lastNumber` INTEGER NOT NULL, PRIMARY KEY(`year`))",
+        "fields": [
+          {
+            "fieldPath": "year",
+            "columnName": "year",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastNumber",
+            "columnName": "lastNumber",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "year"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0385407ca96bccc93210ab9f9a7fb503')"
+    ]
+  }
+}

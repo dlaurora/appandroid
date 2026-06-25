@@ -14,6 +14,11 @@
 - [x] Phase 3 adds no Android permissions, network access, telemetry, analytics, ads, external processors, or sharing integrations.
 - [x] Phase 3 catalog tests and previews use fictitious data only.
 - [ ] Phase 3 does not yet implement a permanent catalog delete/data-erasure flow.
+- [x] Phase 4 stores quote data only in app-private Room storage.
+- [x] Phase 4 adds no Android permissions, network access, telemetry, analytics, ads, external processors, PDFs, FileProvider, or sharing integrations.
+- [x] Phase 4 recalculates persisted totals in domain logic instead of trusting UI totals.
+- [x] Phase 4 quote tests and previews use fictitious data only.
+- [ ] Phase 4 does not yet implement a permanent quote delete/data-erasure flow.
 - [x] In-app privacy policy draft is available offline.
 - [ ] Final privacy policy requires professional review before publication.
 - [ ] Google Play Data Safety draft must be revalidated before release.

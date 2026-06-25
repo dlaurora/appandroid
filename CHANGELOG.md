@@ -11,6 +11,8 @@
 - Client domain validation, use cases, repository, Hilt bindings, StateFlow ViewModels, Room schema export, and focused unit/UI/integration tests.
 - Phase 3 local catalog management with Room for services and products/spare parts, including create, edit, search, category filter, detail, deactivate, restore, active/inactive views, exact money/quantity storage, and migration to schema version 2.
 - Phase 3 verification coverage for catalog ViewModels, UI mappers, SKU-only search, migration, and file database persistence after reopen.
+- Phase 4 local quote management with Room, including quote numbers, line-item snapshots, draft create/edit, deterministic totals, tax/discount calculation, status transitions, duplication, archive/restore, active/archived lists, and migration to schema version 3.
+- Phase 4 quote UI, ViewModels, domain use cases, calculator, validator, state machine, Room DAO/repository, schema export, and focused unit/UI/integration tests.
 
 ### Fixed
 
@@ -24,3 +26,4 @@
 - Kept Phase 2 offline-only with no new permissions, no external integrations, no FileProvider, no physical delete, and no client data logging.
 - Excluded the Room database from Android Auto Backup and Data Extraction Rules until backup/import is explicitly approved.
 - Kept Phase 3 offline-only with no new permissions, no external integrations, no physical delete, no catalog logging, and no floating-point money storage.
+- Kept Phase 4 offline-only with no new permissions, no PDF/share/FileProvider behavior, no physical delete, no quote logging, no floating-point money calculations, and no external integrations.

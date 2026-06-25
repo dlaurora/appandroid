@@ -1,6 +1,6 @@
 # TechQuote
 
-TechQuote is a native Android project scaffold.
+TechQuote is a native Android app for local-first technical service workflows.
 
 ## Current Scope
 
@@ -9,13 +9,16 @@ TechQuote is a native Android project scaffold.
 - Material 3.
 - Navigation Compose.
 - Hilt.
-- Room dependency setup for future persistence.
+- Local Room persistence for clients, catalog items, and quotes.
+- Client management with archive/restore.
+- Service and product catalog management with deactivate/restore.
+- Functional local quote creation, deterministic monetary calculations, status changes, duplication, and archive/restore.
 - Explicit debug and release build configuration.
-- Security, privacy, legal, design, and QA documentation for Phase 0.
+- Security, privacy, legal, design, and QA documentation for the implemented phases.
 
 ## Deferred Scope
 
-Do not implement clients, catalog, quotes, budgets, reports, PDF generation, backup/import, pricing rules, domain models, DAOs, repositories, integrations, or business workflows until the relevant phase is reviewed and accepted.
+Do not implement reports, PDF generation, backup/import, external sharing, photos, integrations, sync, payments, fiscal invoicing, or other new business workflows until the relevant phase is reviewed and accepted.
 
 ## Security Baseline
 

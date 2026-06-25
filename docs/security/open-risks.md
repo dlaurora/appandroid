@@ -10,3 +10,5 @@
 | R-006 | In-app legal and privacy screens are draft-only and need professional review | High | Open | Project owner | Review and finalize content before commercial publication | Yes before publication |
 | R-007 | Phase 2 has archive/restore but no permanent delete flow | Medium | Open | Project owner | Define user-facing delete/data-erasure behavior in a later approved phase | No for Phase 2 |
 | R-008 | Phase 3 catalog has deactivate/restore but no permanent delete flow | Medium | Open | Project owner | Define user-facing catalog deletion/data-erasure behavior in a later approved phase | No for Phase 3 |
+| R-009 | Phase 4 quotes have archive/restore but no permanent delete flow | Medium | Open | Project owner | Define user-facing quote deletion/data-erasure behavior in a later approved phase | No for Phase 4 |
+| R-010 | Quote output may be mistaken for invoice, tax, legal, or certified document | High | Open | Project owner | Keep disclaimers in terms and UI; add document footer/review before any future PDF/export/share phase | No for Phase 4; yes before document export/publication |

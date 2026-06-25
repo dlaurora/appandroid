@@ -50,7 +50,7 @@ fun SettingsScreen(
         ScreenContent(contentPadding = padding) {
             SectionHeader(
                 title = "Preferencias visuales",
-                subtitle = "Los cambios no se guardan en Fase 1.",
+                subtitle = "La selección de tema sigue siendo visual; los datos operativos sí usan Room local.",
             )
             StateContainer(
                 state = contentState,

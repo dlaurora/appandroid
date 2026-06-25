@@ -81,8 +81,8 @@ fun LegalPrivacyScreen(
                 )
                 ListItemCard(
                     title = "Política de privacidad",
-                    subtitle = "Borrador local alineado al comportamiento de Fase 1.",
-                    metadata = "Sin red, permisos, analíticas ni persistencia real.",
+                    subtitle = "Borrador local alineado al comportamiento implementado.",
+                    metadata = "Sin red, permisos, analíticas, PDF ni compartir archivos.",
                     actionLabel = "Leer",
                     onClick = onOpenPrivacyPolicy,
                 )

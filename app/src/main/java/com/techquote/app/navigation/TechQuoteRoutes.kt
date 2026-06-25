@@ -3,6 +3,7 @@ package com.techquote.app.navigation
 object TechQuoteRoutes {
     const val ClientIdArg = "clientId"
     const val CatalogItemIdArg = "catalogItemId"
+    const val QuoteIdArg = "quoteId"
 
     const val Dashboard = "dashboard"
     const val Clients = "clients"
@@ -22,8 +23,10 @@ object TechQuoteRoutes {
     const val ProductForm = "catalog/products/form"
     const val ProductEdit = "catalog/products/form/{$CatalogItemIdArg}"
     const val Quotes = "quotes"
-    const val QuoteDetail = "quotes/detail"
+    const val QuotesArchived = "quotes/archived"
+    const val QuoteDetail = "quotes/detail/{$QuoteIdArg}"
     const val QuoteForm = "quotes/form"
+    const val QuoteEdit = "quotes/form/{$QuoteIdArg}"
     const val Reports = "reports"
     const val ReportForm = "reports/form"
     const val Settings = "settings"
@@ -50,8 +53,10 @@ object TechQuoteRoutes {
         ProductForm,
         ProductEdit,
         Quotes,
+        QuotesArchived,
         QuoteDetail,
         QuoteForm,
+        QuoteEdit,
         Reports,
         ReportForm,
         Settings,
@@ -82,5 +87,13 @@ object TechQuoteRoutes {
 
     fun productEdit(itemId: String): String {
         return "catalog/products/form/$itemId"
+    }
+
+    fun quoteDetail(quoteId: String): String {
+        return "quotes/detail/$quoteId"
+    }
+
+    fun quoteEdit(quoteId: String): String {
+        return "quotes/form/$quoteId"
     }
 }

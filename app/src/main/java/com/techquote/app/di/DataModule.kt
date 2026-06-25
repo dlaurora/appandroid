@@ -5,8 +5,10 @@ import androidx.room.Room
 import com.techquote.app.data.local.catalog.CatalogDao
 import com.techquote.app.data.local.client.ClientDao
 import com.techquote.app.data.local.db.TechQuoteDatabase
+import com.techquote.app.data.local.quote.QuoteDao
 import com.techquote.app.data.repository.RoomClientRepository
 import com.techquote.app.data.repository.RoomProductCatalogRepository
+import com.techquote.app.data.repository.RoomQuoteRepository
 import com.techquote.app.data.repository.RoomServiceCatalogRepository
 import com.techquote.app.domain.client.ClientRepository
 import com.techquote.app.domain.client.ClientValidator
@@ -14,12 +16,17 @@ import com.techquote.app.domain.catalog.ProductCatalogRepository
 import com.techquote.app.domain.catalog.ProductCatalogValidator
 import com.techquote.app.domain.catalog.ServiceCatalogRepository
 import com.techquote.app.domain.catalog.ServiceCatalogValidator
+import com.techquote.app.domain.quote.QuoteRepository
+import com.techquote.app.domain.quote.QuoteValidator
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import java.util.UUID
 import javax.inject.Named
 import javax.inject.Singleton
@@ -38,6 +45,10 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindProductCatalogRepository(repository: RoomProductCatalogRepository): ProductCatalogRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindQuoteRepository(repository: RoomQuoteRepository): QuoteRepository
 }
 
 @Module
@@ -68,6 +79,11 @@ object DataModule {
     }
 
     @Provides
+    fun provideQuoteDao(database: TechQuoteDatabase): QuoteDao {
+        return database.quoteDao()
+    }
+
+    @Provides
     fun provideClientValidator(): ClientValidator {
         return ClientValidator()
     }
@@ -83,6 +99,11 @@ object DataModule {
     }
 
     @Provides
+    fun provideQuoteValidator(): QuoteValidator {
+        return QuoteValidator()
+    }
+
+    @Provides
     @Named("clientIdGenerator")
     fun provideClientIdGenerator(): () -> String {
         return { UUID.randomUUID().toString() }
@@ -95,8 +116,22 @@ object DataModule {
     }
 
     @Provides
+    @Named("quoteIdGenerator")
+    fun provideQuoteIdGenerator(): () -> String {
+        return { UUID.randomUUID().toString() }
+    }
+
+    @Provides
     @Named("clock")
     fun provideClock(): () -> Long {
         return { System.currentTimeMillis() }
+    }
+
+    @Provides
+    @Named("todayProvider")
+    fun provideTodayProvider(): () -> String {
+        return {
+            SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
+        }
     }
 }

@@ -22,8 +22,8 @@ object TechQuotePreviewFixtures {
     val quickActions = listOf(
         QuickActionUi(
             title = "Nuevo presupuesto",
-            description = "Abrir formulario visual sin guardar datos.",
-            actionLabel = "Crear demo",
+            description = "Crear un presupuesto local para un cliente activo.",
+            actionLabel = "Crear",
         ),
         QuickActionUi(
             title = "Nuevo informe",
@@ -32,12 +32,12 @@ object TechQuotePreviewFixtures {
         ),
         QuickActionUi(
             title = "Clientes",
-            description = "Ver listado mock de clientes demo.",
+            description = "Gestionar clientes guardados en este dispositivo.",
             actionLabel = "Ver clientes",
         ),
         QuickActionUi(
             title = "Catálogo",
-            description = "Revisar productos y servicios ficticios.",
+            description = "Gestionar servicios y productos locales.",
             actionLabel = "Ver catálogo",
         ),
     )
@@ -140,12 +140,12 @@ object TechQuotePreviewFixtures {
     val settings = listOf(
         SettingsItemUi(
             title = "Tema",
-            description = "Seguir sistema, claro u oscuro. Visual en Fase 1.",
+            description = "Seguir sistema, claro u oscuro. Preferencia visual pendiente.",
             status = DemoStatus.Draft,
         ),
         SettingsItemUi(
             title = "Datos locales",
-            description = "Persistencia real no implementada todavía.",
+            description = "Clientes, catálogo y presupuestos se guardan en Room privado de la app.",
             status = DemoStatus.Warning,
         ),
         SettingsItemUi(
@@ -158,8 +158,9 @@ object TechQuotePreviewFixtures {
     val privacyPolicy = LegalDocumentUi(
         title = "Política de privacidad",
         sections = listOf(
-            "Borrador local para revisión. TechQuote Fase 1 no recolecta datos, no usa red, no declara permisos y no integra analíticas.",
-            "Las pantallas muestran datos ficticios y determinísticos para probar navegación y diseño visual.",
+            "Borrador local para revisión. TechQuote guarda clientes, catálogo y presupuestos localmente en este dispositivo.",
+            "La app no usa red, no declara permisos, no integra analíticas, no genera PDFs y no comparte archivos en la fase actual.",
+            "Los presupuestos pueden contener datos personales o comerciales según lo que ingrese el usuario.",
             "La política final requiere revisión profesional antes de publicación comercial.",
         ),
     )
@@ -168,7 +169,8 @@ object TechQuotePreviewFixtures {
         title = "Términos de uso",
         sections = listOf(
             "Borrador local para revisión. TechQuote no reemplaza asesoramiento legal, fiscal, contable ni certificaciones profesionales.",
-            "Los documentos o pantallas simuladas de Fase 1 no tienen validez operativa y no guardan información.",
+            "Los presupuestos son registros locales de trabajo. No son facturas, recibos, certificados, contratos ni documentos fiscales.",
+            "El usuario debe validar precios, impuestos, descuentos, términos y datos de clientes antes de usar un presupuesto.",
             "Los términos finales requieren revisión profesional antes de publicación comercial.",
         ),
     )

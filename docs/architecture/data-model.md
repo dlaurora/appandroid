@@ -68,3 +68,69 @@ It has the same fields as `ServiceCatalogItem` plus:
 | `sku` | `String` | No | Duplicate active non-empty normalized SKU is blocked |
 
 Catalog records are local reference data. They are not quotes, invoices, fiscal documents, or price guarantees.
+
+## Quote
+
+Phase 4 stores local quote headers in `quotes`.
+
+| Field | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `id` | `String` | Yes | Stable generated ID |
+| `quoteNumber` | `String` | Yes | Locally generated as `TQ-YYYY-000001`; unique in the local database |
+| `clientId` | `String` | Yes | References an active Phase 2 client when saved |
+| `title` | `String` | Yes | Defaults from quote number when blank |
+| `description` | `String` | No | App-private storage only |
+| `status` | `QuoteStatus` | Yes | Explicit state machine; full edit only in `DRAFT` |
+| `issueDate` | `String` | Yes | `YYYY-MM-DD` text date |
+| `validUntil` | `String` | No | Optional `YYYY-MM-DD` text date |
+| `subtotalMinor` | `Long` | Yes | Integer minor currency units |
+| `discountType` | `DiscountType` | Yes | `NONE`, `FIXED`, or `PERCENT` |
+| `discountValue` | `Long` | Yes | Minor units for fixed, basis points for percent |
+| `taxEnabled` | `Boolean` | Yes | Optional quote-level tax |
+| `taxLabel` | `String` | Conditional | Required when tax is enabled |
+| `taxRateBasisPoints` | `Long` | Yes | `10000` means `100.00%` |
+| `taxAmountMinor` | `Long` | Yes | Calculated by domain calculator |
+| `totalMinor` | `Long` | Yes | Calculated by domain calculator |
+| `notes` | `String` | No | App-private storage only |
+| `termsAndConditions` | `String` | No | User-entered commercial text; not legal advice |
+| `createdAt` | `Long` | Yes | Epoch milliseconds; immutable after creation |
+| `updatedAt` | `Long` | Yes | Changes on real edits, status changes, archive/restore |
+| `isArchived` | `Boolean` | Yes | Logical archive; no physical delete in Phase 4 |
+
+## QuoteLineItem
+
+Phase 4 stores quote line item snapshots in `quote_line_items`.
+
+| Field | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `id` | `String` | Yes | Stable generated ID |
+| `quoteId` | `String` | Yes | Parent quote |
+| `type` | `QuoteLineItemType` | Yes | `SERVICE`, `PRODUCT`, `TRAVEL`, or `OTHER` |
+| `sourceCatalogItemId` | `String?` | No | Catalog source when copied from service/product |
+| `name` | `String` | Yes | Snapshot value editable inside the quote |
+| `description` | `String` | No | Snapshot value editable inside the quote |
+| `quantityThousandths` | `Long` | Yes | Exact thousandths; must be greater than zero |
+| `unitPriceMinor` | `Long` | Yes | Integer minor currency units |
+| `discountType` | `DiscountType` | Yes | Line-level discount type |
+| `discountValue` | `Long` | Yes | Minor units for fixed, basis points for percent |
+| `totalMinor` | `Long` | Yes | Calculated line total |
+| `sortOrder` | `Int` | Yes | Stable display order |
+
+When a service or product is added to a quote, the line item copies name, description, quantity, price, and type. Later catalog edits do not modify existing quote line items.
+
+## QuoteNumberCounter
+
+Phase 4 stores local per-year counters in `quote_number_counters`.
+
+| Field | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `year` | `String` | Yes | Primary key from quote issue date |
+| `lastNumber` | `Int` | Yes | Incremented transactionally before quote insert |
+
+## Money And Quantity Representation
+
+- Money uses `Long` minor units.
+- Quantity uses `Long` thousandths.
+- Percentages use basis points.
+- `Float` and `Double` are not used for quote monetary calculations.
+- Persisted quote totals are recalculated in domain use cases and are not trusted from UI state.
