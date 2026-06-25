@@ -16,10 +16,10 @@ interface ClientDao {
         WHERE isArchived = :isArchived
           AND (
             (:textQuery = '' AND :phoneQuery = '')
-            OR normalizedFullName LIKE '%' || :textQuery || '%'
-            OR normalizedBusinessName LIKE '%' || :textQuery || '%'
+            OR (:textQuery != '' AND normalizedFullName LIKE '%' || :textQuery || '%')
+            OR (:textQuery != '' AND normalizedBusinessName LIKE '%' || :textQuery || '%')
             OR (:phoneQuery != '' AND normalizedPhone LIKE '%' || :phoneQuery || '%')
-            OR normalizedEmail LIKE '%' || :textQuery || '%'
+            OR (:textQuery != '' AND normalizedEmail LIKE '%' || :textQuery || '%')
           )
         ORDER BY updatedAt DESC, createdAt DESC
         """,

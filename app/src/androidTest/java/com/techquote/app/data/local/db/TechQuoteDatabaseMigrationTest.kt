@@ -19,12 +19,12 @@ class TechQuoteDatabaseMigrationTest {
     )
 
     @Test
-    fun schemaVersionOneIsValid() {
+    fun migratesFromVersionOneToVersionTwo() {
         helper.createDatabase(TEST_DB, 1).apply {
             close()
         }
 
-        helper.runMigrationsAndValidate(TEST_DB, 1, true, *TechQuoteDatabase.Migrations)
+        helper.runMigrationsAndValidate(TEST_DB, 2, true, *TechQuoteDatabase.Migrations)
     }
 
     private companion object {

@@ -22,13 +22,10 @@ Current implemented support scope:
 - app installation and launch guidance;
 - local client management guidance;
 - local data behavior explanation;
-- troubleshooting build or app behavior during development.
-
-Phase 3 support scope, when implemented:
-
 - local service catalog guidance;
 - local product/spare-part catalog guidance;
-- explanation of local prices, quantities, SKU, categories, activation, and deactivation behavior.
+- explanation of local prices, quantities, SKU, categories, activation, and deactivation behavior;
+- troubleshooting build or app behavior during development.
 
 ## Support Limits
 

@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
 
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(platform(libs.kotlinx.serialization.bom))
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 

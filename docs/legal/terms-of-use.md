@@ -13,7 +13,7 @@ Release blockers before publication:
 
 ## Service Scope
 
-TechQuote is a local Android productivity tool for technicians and small service workflows. Current implemented features focus on local client management. Phase 3 is planned to add a local catalog of services and products/spare parts.
+TechQuote is a local Android productivity tool for technicians and small service workflows. Current implemented features include local client management and a local catalog of services and products/spare parts.
 
 TechQuote is not a fiscal invoicing system, accounting system, legal advice service, tax advice service, professional certification system, contract generator, payment processor, or substitute for official documents required by local authorities.
 

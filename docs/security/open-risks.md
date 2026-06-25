@@ -9,3 +9,4 @@
 | R-005 | Support email, legal entity, jurisdiction, and public privacy URL are not final | High | Open | Project owner | Resolve before Play publication | Yes before publication |
 | R-006 | In-app legal and privacy screens are draft-only and need professional review | High | Open | Project owner | Review and finalize content before commercial publication | Yes before publication |
 | R-007 | Phase 2 has archive/restore but no permanent delete flow | Medium | Open | Project owner | Define user-facing delete/data-erasure behavior in a later approved phase | No for Phase 2 |
+| R-008 | Phase 3 catalog has deactivate/restore but no permanent delete flow | Medium | Open | Project owner | Define user-facing catalog deletion/data-erasure behavior in a later approved phase | No for Phase 3 |

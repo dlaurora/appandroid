@@ -40,3 +40,31 @@ Mappers are explicit and tested. UI code does not depend directly on Room entiti
 ## Backup Decision
 
 Client records are personal data. Phase 2 excludes the Room database from Android Auto Backup and cloud/device-transfer data extraction rules until a dedicated backup/import phase defines user control, disclosure, validation, and recovery behavior.
+
+## ServiceCatalogItem
+
+Phase 3 stores local reusable service records in `service_catalog_items`.
+
+| Field | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `id` | `String` | Yes | Stable generated ID |
+| `name` | `String` | Yes | Duplicate active normalized names are blocked |
+| `description` | `String` | No | Catalog text, not personal data by design |
+| `defaultUnitPriceMinor` | `Long?` | No | Integer minor currency units; no `Float` or `Double` |
+| `defaultQuantityThousandths` | `Long?` | No | Exact thousandths |
+| `category` | `String` | No | Search/filter helper |
+| `isActive` | `Boolean` | Yes | Logical active/inactive state |
+| `createdAt` | `Long` | Yes | Preserved on edit |
+| `updatedAt` | `Long` | Yes | Updated on real changes |
+
+## ProductCatalogItem
+
+Phase 3 stores local reusable product/spare-part records in `product_catalog_items`.
+
+It has the same fields as `ServiceCatalogItem` plus:
+
+| Field | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `sku` | `String` | No | Duplicate active non-empty normalized SKU is blocked |
+
+Catalog records are local reference data. They are not quotes, invoices, fiscal documents, or price guarantees.

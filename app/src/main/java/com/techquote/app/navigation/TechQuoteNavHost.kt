@@ -7,6 +7,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.techquote.app.ui.catalog.CatalogRoute
+import com.techquote.app.ui.catalog.ProductDetailRoute
+import com.techquote.app.ui.catalog.ProductFormRoute
+import com.techquote.app.ui.catalog.ProductsListRoute
+import com.techquote.app.ui.catalog.ServiceDetailRoute
+import com.techquote.app.ui.catalog.ServiceFormRoute
+import com.techquote.app.ui.catalog.ServicesListRoute
 import com.techquote.app.ui.clients.ClientDetailRoute
 import com.techquote.app.ui.clients.ClientFormRoute
 import com.techquote.app.ui.clients.ClientsListRoute
@@ -91,7 +97,93 @@ fun TechQuoteNavHost() {
             )
         }
         composable(TechQuoteRoutes.Catalog) {
-            CatalogRoute(onNavigateBack = { navController.navigateUp() })
+            CatalogRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onOpenServices = { navController.navigate(TechQuoteRoutes.CatalogServices) },
+                onOpenProducts = { navController.navigate(TechQuoteRoutes.CatalogProducts) },
+            )
+        }
+        composable(TechQuoteRoutes.CatalogServices) {
+            ServicesListRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onOpenService = { itemId -> navController.navigate(TechQuoteRoutes.serviceDetail(itemId)) },
+                onCreateService = { navController.navigate(TechQuoteRoutes.ServiceForm) },
+                onOpenInactive = { navController.navigate(TechQuoteRoutes.CatalogServicesInactive) },
+            )
+        }
+        composable(TechQuoteRoutes.CatalogServicesInactive) {
+            ServicesListRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onOpenService = { itemId -> navController.navigate(TechQuoteRoutes.serviceDetail(itemId)) },
+                onCreateService = { navController.navigate(TechQuoteRoutes.ServiceForm) },
+                onOpenInactive = { navController.navigateUp() },
+                showInactive = true,
+            )
+        }
+        composable(
+            route = TechQuoteRoutes.ServiceDetail,
+            arguments = listOf(navArgument(TechQuoteRoutes.CatalogItemIdArg) { type = NavType.StringType }),
+        ) {
+            ServiceDetailRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onEditService = { itemId -> navController.navigate(TechQuoteRoutes.serviceEdit(itemId)) },
+            )
+        }
+        composable(TechQuoteRoutes.ServiceForm) {
+            ServiceFormRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onSaved = { itemId -> navController.navigate(TechQuoteRoutes.serviceDetail(itemId)) },
+            )
+        }
+        composable(
+            route = TechQuoteRoutes.ServiceEdit,
+            arguments = listOf(navArgument(TechQuoteRoutes.CatalogItemIdArg) { type = NavType.StringType }),
+        ) {
+            ServiceFormRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onSaved = { itemId -> navController.navigate(TechQuoteRoutes.serviceDetail(itemId)) },
+            )
+        }
+        composable(TechQuoteRoutes.CatalogProducts) {
+            ProductsListRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onOpenProduct = { itemId -> navController.navigate(TechQuoteRoutes.productDetail(itemId)) },
+                onCreateProduct = { navController.navigate(TechQuoteRoutes.ProductForm) },
+                onOpenInactive = { navController.navigate(TechQuoteRoutes.CatalogProductsInactive) },
+            )
+        }
+        composable(TechQuoteRoutes.CatalogProductsInactive) {
+            ProductsListRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onOpenProduct = { itemId -> navController.navigate(TechQuoteRoutes.productDetail(itemId)) },
+                onCreateProduct = { navController.navigate(TechQuoteRoutes.ProductForm) },
+                onOpenInactive = { navController.navigateUp() },
+                showInactive = true,
+            )
+        }
+        composable(
+            route = TechQuoteRoutes.ProductDetail,
+            arguments = listOf(navArgument(TechQuoteRoutes.CatalogItemIdArg) { type = NavType.StringType }),
+        ) {
+            ProductDetailRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onEditProduct = { itemId -> navController.navigate(TechQuoteRoutes.productEdit(itemId)) },
+            )
+        }
+        composable(TechQuoteRoutes.ProductForm) {
+            ProductFormRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onSaved = { itemId -> navController.navigate(TechQuoteRoutes.productDetail(itemId)) },
+            )
+        }
+        composable(
+            route = TechQuoteRoutes.ProductEdit,
+            arguments = listOf(navArgument(TechQuoteRoutes.CatalogItemIdArg) { type = NavType.StringType }),
+        ) {
+            ProductFormRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onSaved = { itemId -> navController.navigate(TechQuoteRoutes.productDetail(itemId)) },
+            )
         }
         composable(TechQuoteRoutes.Quotes) {
             QuotesListRoute(

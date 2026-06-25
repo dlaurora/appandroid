@@ -57,9 +57,9 @@ Android's emulator documentation recommends creating an Android Virtual Device, 
 1. Start an emulator or connect a physical device.
 2. Select the `app` run configuration.
 3. Click **Run**.
-4. Navigate from Dashboard to Clients, Catalog, Presupuestos, Informes, Configuración, and Legal y privacidad.
+4. Navigate from Dashboard to Clientes, Catálogo, Presupuestos, Informes, Configuración, and Legal y privacidad.
 
-Phase 2 client actions persist locally through Room. Catalog, quote, report, and settings business actions remain placeholders.
+Phase 2 client actions and Phase 3 catalog actions persist locally through Room. Quote, report, and settings business actions remain placeholders.
 
 ## Enable Live Edit
 
@@ -88,7 +88,7 @@ Compose previews also have limitations: they are lightweight and should avoid ne
 2. Select the running device and TechQuote process.
 3. Use filters to inspect crashes or framework messages.
 
-Phase 2 does not add production logging. Do not log personal data, quote content, report content, local URIs, or future PDF/photo contents.
+TechQuote does not add production logging for client or catalog data. Do not log personal data, catalog names, SKU, prices, quote content, report content, local URIs, or future PDF/photo contents.
 
 ## Run On A Physical Device
 
@@ -98,7 +98,7 @@ Phase 2 does not add production logging. Do not log personal data, quote content
 4. Accept the debugging prompt on the device.
 5. Select the device in Android Studio and click **Run**.
 
-Always test on a real device before commercial release. Phase 2 should verify client persistence across app restarts on at least one emulator or physical device.
+Always test on a real device before commercial release. Phase 3 should verify client and catalog persistence across app restarts on at least one emulator or physical device.
 
 ## Official References
 

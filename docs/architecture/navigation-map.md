@@ -2,7 +2,7 @@
 
 ## Scope
 
-Phase 2 keeps the app offline-first and connects the clients area to local Room persistence. Catalog, quotes, reports, PDFs, sharing, imports, exports, and integrations remain placeholder or future-scope routes.
+Phase 3 keeps the app offline-first and connects local Room persistence for clients, services, and products/spare parts. Quotes, reports, PDFs, sharing, imports, exports, and integrations remain placeholder or future-scope routes.
 
 ## Route List
 
@@ -14,7 +14,17 @@ Phase 2 keeps the app offline-first and connects the clients area to local Room 
 | `clients/detail/{clientId}` | Persisted client detail | Back to clients list or previous screen |
 | `clients/form` | Create client form | Back to previous screen |
 | `clients/form/{clientId}` | Edit client form | Back to previous screen |
-| `catalog` | Catalog mock | Back to dashboard |
+| `catalog` | Catalog hub | Back to dashboard |
+| `catalog/services` | Active services list | Back to catalog hub |
+| `catalog/services/inactive` | Inactive services list | Back to active services or previous screen |
+| `catalog/services/detail/{catalogItemId}` | Persisted service detail | Back to services list or previous screen |
+| `catalog/services/form` | Create service form | Back to previous screen |
+| `catalog/services/form/{catalogItemId}` | Edit service form | Back to previous screen |
+| `catalog/products` | Active products/spare-parts list | Back to catalog hub |
+| `catalog/products/inactive` | Inactive products/spare-parts list | Back to active products or previous screen |
+| `catalog/products/detail/{catalogItemId}` | Persisted product detail | Back to products list or previous screen |
+| `catalog/products/form` | Create product form | Back to previous screen |
+| `catalog/products/form/{catalogItemId}` | Edit product form | Back to previous screen |
 | `quotes` | Quotes list | Back to dashboard |
 | `quotes/detail` | Quote detail mock | Back to quotes list or previous screen |
 | `quotes/form` | Quote create/edit mock form | Back to previous screen |
@@ -34,8 +44,12 @@ Phase 2 keeps the app offline-first and connects the clients area to local Room 
 - Active client rows navigate to persisted detail.
 - Archived client rows expose restore action and do not open edit directly.
 - Client form save creates or updates a local Room record, then navigates to detail.
+- Catalog hub opens services or products.
+- Active service and product rows navigate to persisted detail.
+- Inactive catalog rows expose restore action and do not open edit directly.
+- Catalog form save creates or updates a local Room record, then navigates to detail.
 - Legal screens are local/offline and must remain readable without network access.
-- Non-client routes remain visual placeholders until their approved phase.
+- Quote, report, export, sharing, backup/import, and integration routes remain visual placeholders until their approved phase.
 
 ## Future Integration Points
 

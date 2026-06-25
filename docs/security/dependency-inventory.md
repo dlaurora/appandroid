@@ -15,7 +15,8 @@
 | Navigation Compose | 2.9.8 | In-app navigation | Route state only | No runtime app data | Avoid sensitive payloads in routes |
 | Hilt | 2.59.2 | Dependency injection | App object graph | No runtime app data by itself | Keep compiler pinned |
 | AndroidX Hilt Navigation Compose | 1.3.0 | Hilt integration with navigation | Navigation/DI state | No runtime app data | Runtime dependency |
-| Room | 2.8.4 | Local client persistence | App-private SQLite database | No external transmission | Database excluded from backup in Phase 2; evaluate encryption before production sensitive data |
+| Room | 2.8.4 | Local client and catalog persistence | App-private SQLite database | No external transmission | Database excluded from backup; schema migration 1 -> 2 adds catalog tables; evaluate encryption before production sensitive data |
+| Kotlinx Serialization BOM | 1.8.1 | Aligns transitive serialization runtime used by Room migration testing and AndroidX saved state | App/runtime metadata only | No runtime app data transmission | Keeps `serialization-json` and `serialization-core` compatible for Room migration validation |
 | Kotlinx Coroutines Test | 1.10.2 | ViewModel and coroutine unit tests | Test data only | No runtime app data | Test-only dependency |
 | JUnit | 4.13.2 | Unit tests | Test data only | No runtime app data | Test-only dependency |
 | AndroidX JUnit | 1.3.0 | Instrumented tests | Test data only | No runtime app data | Test-only dependency |

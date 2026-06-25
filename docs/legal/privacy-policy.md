@@ -26,7 +26,7 @@ Current implemented phases may store:
 - addresses;
 - client notes.
 
-When Phase 3 catalog features are implemented, the app may also store:
+The implemented catalog features may also store:
 
 - service names and descriptions;
 - product or spare-part names and descriptions;
@@ -64,7 +64,7 @@ The source Android manifest declares no Android permissions in the current MVP.
 
 ## Retention And Deletion
 
-Client records currently support logical archive/restore. Catalog records in Phase 3 are planned to support logical deactivate/restore. Physical deletion inside the app is not implemented unless a future accepted phase adds it.
+Client records currently support logical archive/restore. Catalog records currently support logical deactivate/restore. Physical deletion inside the app is not implemented unless a future accepted phase adds it.
 
 Users can remove local app data through Android system app settings or by uninstalling the app. Uninstalling or clearing app data may permanently remove local TechQuote data from the device.
 
