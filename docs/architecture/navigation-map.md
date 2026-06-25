@@ -2,16 +2,18 @@
 
 ## Scope
 
-Phase 1 navigation is visual and mock-only. It proves that every primary screen can be opened, previewed, and navigated without crashes. It does not pass real entity IDs, load persisted records, or perform business workflows.
+Phase 2 keeps the app offline-first and connects the clients area to local Room persistence. Catalog, quotes, reports, PDFs, sharing, imports, exports, and integrations remain placeholder or future-scope routes.
 
 ## Route List
 
 | Route | Screen | Back behavior |
 | --- | --- | --- |
 | `dashboard` | Dashboard | Root destination |
-| `clients` | Clients list | Back to dashboard |
-| `clients/detail` | Client detail mock | Back to clients list or previous screen |
-| `clients/form` | Client create/edit mock form | Back to previous screen |
+| `clients` | Active clients list | Back to dashboard |
+| `clients/archived` | Archived clients list | Back to active clients or previous screen |
+| `clients/detail/{clientId}` | Persisted client detail | Back to clients list or previous screen |
+| `clients/form` | Create client form | Back to previous screen |
+| `clients/form/{clientId}` | Edit client form | Back to previous screen |
 | `catalog` | Catalog mock | Back to dashboard |
 | `quotes` | Quotes list | Back to dashboard |
 | `quotes/detail` | Quote detail mock | Back to quotes list or previous screen |
@@ -26,13 +28,15 @@ Phase 1 navigation is visual and mock-only. It proves that every primary screen 
 ## Navigation Rules
 
 - `dashboard` is the start destination.
-- Routes use deterministic mock records; no runtime arguments are required in Phase 1.
+- Client detail and edit routes pass a stable app-generated `clientId`.
 - Back navigation calls `NavController.navigateUp()`.
 - Primary dashboard actions navigate to quote form, report form, clients, and catalog.
-- List rows navigate to mock detail screens.
-- Form screens are visual only. Save/cancel actions show simulated feedback or navigate back without persistence.
+- Active client rows navigate to persisted detail.
+- Archived client rows expose restore action and do not open edit directly.
+- Client form save creates or updates a local Room record, then navigates to detail.
 - Legal screens are local/offline and must remain readable without network access.
+- Non-client routes remain visual placeholders until their approved phase.
 
 ## Future Integration Points
 
-Future phases may replace route mocks with ViewModels and repositories. Screen composables must remain parameter-driven so previews and tests do not depend on those future integrations.
+Future phases may replace the remaining route mocks with ViewModels and repositories. Screen composables must remain parameter-driven so previews and tests do not depend on Room, Hilt, network, files, or real user data.

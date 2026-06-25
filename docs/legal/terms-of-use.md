@@ -1,43 +1,58 @@
-# Terms of Use
+# Terms Of Use
 
 ## Status
 
-Draft for MVP planning. Requires professional legal review before commercial publication. Support contact marker: SUPPORT_EMAIL_REPLACE_BEFORE_RELEASE.
+Publication-oriented draft aligned with the current local-first TechQuote MVP. This is not legal advice and requires professional legal review before commercial publication.
+
+Release blockers before publication:
+
+- final developer or responsible legal entity;
+- final support contact;
+- final jurisdiction or applicable-law decision where required;
+- final effective date.
 
 ## Service Scope
 
-TechQuote is a tool for creating quotes, technical reports, and working documents.
+TechQuote is a local Android productivity tool for technicians and small service workflows. Current implemented features focus on local client management. Phase 3 is planned to add a local catalog of services and products/spare parts.
+
+TechQuote is not a fiscal invoicing system, accounting system, legal advice service, tax advice service, professional certification system, contract generator, payment processor, or substitute for official documents required by local authorities.
 
 ## User Responsibility
 
-The user is responsible for verifying prices, calculations, taxes, currency, commercial terms, customer data, document content, applicable laws, device access, backups, and authorization to enter personal data, photos, and third-party documents.
+The user is responsible for:
 
-## Limitations
+- verifying client information entered into the app;
+- verifying service, product, SKU, category, price, quantity, tax, discount, and commercial information;
+- keeping catalog values current and accurate;
+- confirming that any future quote, report, export, or shared document is correct before using it;
+- complying with applicable laws and professional obligations;
+- protecting device access;
+- maintaining backups once backup/export features exist;
+- having authorization to enter personal or third-party business data.
 
-TechQuote is not a fiscal invoicing system, accounting system, legal advice service, tax advice service, professional certification system, contract generator, or substitute for required official documents.
+Catalog values are user-managed reference data. They are not guaranteed to be current, complete, legally compliant, or suitable for a specific job.
 
-Generated documents do not replace invoices, contracts, fiscal receipts, certificates, or legal documents required by local authorities.
+## Availability And Data Recovery
 
-## Availability
-
-The MVP works locally. Users must maintain their own backups. TechQuote does not guarantee recovery of data lost through device loss, damage, replacement, reset, or uninstall.
+The current MVP works locally on the device. Backup/import and cloud sync are not implemented. TechQuote does not currently guarantee recovery of data lost through device loss, damage, replacement, reset, app uninstall, app data clearing, or user error.
 
 ## Prohibited Use
 
 - Illegal, fraudulent, or misleading use.
 - Identity impersonation.
-- Generating false documents.
-- Violating third-party rights.
-- Uploading content without authorization.
+- Creating false or deceptive documents.
+- Violating third-party privacy, intellectual property, contractual, or legal rights.
+- Entering personal data without authorization.
+- Presenting TechQuote output as an official invoice, receipt, certificate, legal document, or tax document when it is not one.
 
 ## Intellectual Property
 
-The app, design, name, and project-owned elements are protected. User-entered data and user-generated documents remain the user's responsibility.
+The app, design, name, code, and project-owned elements are protected by applicable intellectual property laws. User-entered data remains the user's responsibility.
 
 ## Changes
 
-Relevant changes should be communicated in-app or in the relevant app update.
+Terms may be updated as app features change. Material changes should be reflected in the app, repository docs, and release/store materials before publication.
 
 ## Contact
 
-SUPPORT_EMAIL_REPLACE_BEFORE_RELEASE
+A final support contact must be added before commercial publication.

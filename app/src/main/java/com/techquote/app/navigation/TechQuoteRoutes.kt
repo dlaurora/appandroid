@@ -1,10 +1,14 @@
 package com.techquote.app.navigation
 
 object TechQuoteRoutes {
+    const val ClientIdArg = "clientId"
+
     const val Dashboard = "dashboard"
     const val Clients = "clients"
-    const val ClientDetail = "clients/detail"
+    const val ClientsArchived = "clients/archived"
+    const val ClientDetail = "clients/detail/{$ClientIdArg}"
     const val ClientForm = "clients/form"
+    const val ClientEdit = "clients/form/{$ClientIdArg}"
     const val Catalog = "catalog"
     const val Quotes = "quotes"
     const val QuoteDetail = "quotes/detail"
@@ -19,8 +23,10 @@ object TechQuoteRoutes {
     val all = listOf(
         Dashboard,
         Clients,
+        ClientsArchived,
         ClientDetail,
         ClientForm,
+        ClientEdit,
         Catalog,
         Quotes,
         QuoteDetail,
@@ -32,4 +38,12 @@ object TechQuoteRoutes {
         PrivacyPolicy,
         TermsOfUse,
     )
+
+    fun clientDetail(clientId: String): String {
+        return "clients/detail/$clientId"
+    }
+
+    fun clientEdit(clientId: String): String {
+        return "clients/form/$clientId"
+    }
 }

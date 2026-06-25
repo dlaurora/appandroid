@@ -6,6 +6,9 @@ This release draft mirrors `docs/legal/terms-of-use.md`.
 
 Before publication, define responsible legal entity, jurisdiction, applicable law, support contact, and final commercial terms with a qualified professional.
 
-## Support Contact
+## Release Blockers
 
-SUPPORT_EMAIL_REPLACE_BEFORE_RELEASE
+- Final support contact.
+- Final responsible developer or legal entity.
+- Final jurisdiction or applicable-law decision where required.
+- Final effective date.

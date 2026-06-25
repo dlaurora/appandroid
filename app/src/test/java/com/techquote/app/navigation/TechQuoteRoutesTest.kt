@@ -8,19 +8,21 @@ class TechQuoteRoutesTest {
     @Test
     fun allRoutesAreUnique() {
         assertEquals(
-            "Every Phase 1 route must be unique.",
+            "Every route must be unique.",
             TechQuoteRoutes.all.size,
             TechQuoteRoutes.all.toSet().size,
         )
     }
 
     @Test
-    fun phaseOneRoutesContainRequiredScreens() {
+    fun routesContainRequiredScreens() {
         val expectedRoutes = setOf(
             TechQuoteRoutes.Dashboard,
             TechQuoteRoutes.Clients,
+            TechQuoteRoutes.ClientsArchived,
             TechQuoteRoutes.ClientDetail,
             TechQuoteRoutes.ClientForm,
+            TechQuoteRoutes.ClientEdit,
             TechQuoteRoutes.Catalog,
             TechQuoteRoutes.Quotes,
             TechQuoteRoutes.QuoteDetail,
@@ -34,7 +36,7 @@ class TechQuoteRoutesTest {
         )
 
         assertTrue(
-            "Phase 1 navigation must expose every required route.",
+            "Navigation must expose every required route.",
             TechQuoteRoutes.all.containsAll(expectedRoutes),
         )
     }

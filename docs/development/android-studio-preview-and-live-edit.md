@@ -40,7 +40,7 @@ The grouped preview annotations render both light and dark variants:
 - `@TechQuotePhonePreviews` for full phone screens.
 - `@TechQuoteComponentPreviews` for focused component previews.
 
-The runtime app follows the system theme. Phase 1 settings only show visual theme options and do not persist a selection.
+The runtime app follows the system theme. Settings only show visual theme options and do not persist a selection yet.
 
 ## Create An Android Emulator
 
@@ -59,7 +59,7 @@ Android's emulator documentation recommends creating an Android Virtual Device, 
 3. Click **Run**.
 4. Navigate from Dashboard to Clients, Catalog, Presupuestos, Informes, Configuración, and Legal y privacidad.
 
-All Phase 1 actions are simulated. Save and delete buttons show visual feedback only.
+Phase 2 client actions persist locally through Room. Catalog, quote, report, and settings business actions remain placeholders.
 
 ## Enable Live Edit
 
@@ -88,7 +88,7 @@ Compose previews also have limitations: they are lightweight and should avoid ne
 2. Select the running device and TechQuote process.
 3. Use filters to inspect crashes or framework messages.
 
-Phase 1 does not add production logging. Do not log personal data, quote content, report content, local URIs, or future PDF/photo contents.
+Phase 2 does not add production logging. Do not log personal data, quote content, report content, local URIs, or future PDF/photo contents.
 
 ## Run On A Physical Device
 
@@ -98,7 +98,7 @@ Phase 1 does not add production logging. Do not log personal data, quote content
 4. Accept the debugging prompt on the device.
 5. Select the device in Android Studio and click **Run**.
 
-Always test on a real device before commercial release. Phase 1 only requires visual navigation checks; future phases need broader device testing.
+Always test on a real device before commercial release. Phase 2 should verify client persistence across app restarts on at least one emulator or physical device.
 
 ## Official References
 

@@ -2,9 +2,11 @@
 
 | Data type | Sensitivity | Storage location | Sharing rule | Retention rule |
 | --- | --- | --- | --- | --- |
-| Customer name | Personal data | Future app-private database | Share only in user-generated documents by explicit action | Delete when user deletes customer or app data |
-| Phone and email | Personal data | Future app-private database | Share only by explicit user action | Delete when user deletes customer or app data |
-| Address | Personal data | Future app-private database | Share only in user-generated documents by explicit action | Delete when user deletes customer or app data |
+| Customer name | Personal data | App-private Room database | No sharing in Phase 2 | Archive/restore only in Phase 2; future delete policy required |
+| Business name | Potential personal or commercial data | App-private Room database | No sharing in Phase 2 | Archive/restore only in Phase 2; future delete policy required |
+| Phone and email | Personal data | App-private Room database | No sharing in Phase 2 | Archive/restore only in Phase 2; future delete policy required |
+| Address | Personal data | App-private Room database | No sharing in Phase 2 | Archive/restore only in Phase 2; future delete policy required |
+| Client notes | Potentially sensitive personal or commercial data | App-private Room database | No sharing in Phase 2 | Archive/restore only in Phase 2; future delete policy required |
 | Quote amounts and totals | Commercial data | Future app-private database | Share only in generated documents by explicit action | Delete when user deletes quote or app data |
 | Technical report text | Potentially sensitive work data | Future app-private database | Share only in generated documents by explicit action | Delete when user deletes report or app data |
 | Photos | Potentially sensitive media | Future app-private internal files or user-selected URI access | Share only by explicit action | Delete temp copies when no longer needed |

@@ -26,6 +26,7 @@ externalNativeBuild/
 .android/
 android-sdk/
 sdk/
+gradle/gradle-daemon-jvm.properties
 
 # Signing and secrets
 *.jks

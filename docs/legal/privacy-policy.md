@@ -2,50 +2,84 @@
 
 ## Status
 
-Draft for MVP planning. Requires professional legal review before publication. Support contact marker: SUPPORT_EMAIL_REPLACE_BEFORE_RELEASE.
+Publication-oriented draft aligned with the current local-first TechQuote MVP. This is not legal advice and requires professional legal review before commercial publication.
+
+Release blockers before publication:
+
+- final developer or responsible legal entity;
+- final privacy contact;
+- final effective date;
+- final public privacy policy URL.
+
+## App Scope
+
+TechQuote is an offline-first Android app for local technical business workflows. Current implemented data is stored on the user's device in app-private storage. The app does not currently implement accounts, cloud sync, analytics, advertising, external servers, PDF export, backup/import, photos, FileProvider sharing, or external integrations.
 
 ## Data Users May Enter
 
-- Customer names.
-- Contact details.
-- Addresses.
-- Quotes and budgets.
-- Technical reports.
-- Amounts.
-- Notes.
-- Attached photos.
-- Business configuration data.
+Current implemented phases may store:
+
+- client names;
+- business names;
+- phone numbers;
+- email addresses;
+- addresses;
+- client notes.
+
+When Phase 3 catalog features are implemented, the app may also store:
+
+- service names and descriptions;
+- product or spare-part names and descriptions;
+- SKU values;
+- categories;
+- prices;
+- quantities.
+
+Catalog data must not intentionally contain personal data unless the user enters it.
 
 ## Where Data Is Stored
 
-TechQuote MVP is designed to store data locally on the user's device, inside app-private storage and in files generated or exported only by user action.
+Implemented records are stored locally on the user's device in the app's private Room database. TechQuote does not transmit this data to a developer server in the current MVP.
 
-## Data TechQuote Does Not Collect in MVP
+The Room database is excluded from Android Auto Backup and Data Extraction Rules in the current project configuration. Backup/import is not implemented yet.
+
+## Data TechQuote Does Not Collect Or Share In The Current MVP
 
 - No accounts.
 - No location collection.
+- No contact-book access.
+- No camera or photo access.
+- No advertising ID.
+- No analytics.
 - No advertising.
 - No trackers.
 - No sale of information.
-- No server-side data upload.
-- No access to user data without user action.
+- No server-side upload.
+- No cloud sync.
+- No external processors for user-entered app data.
 
-## Sharing and Exporting
+## Permissions
 
-The user chooses what document to share or export. After sharing, the receiving app and chosen channel may apply their own policies. TechQuote does not control later handling by external apps.
+The source Android manifest declares no Android permissions in the current MVP.
 
-## Deleting Data
+## Retention And Deletion
 
-Users can delete data through future app deletion flows, by uninstalling the app, or by manually deleting exported files outside the app.
+Client records currently support logical archive/restore. Catalog records in Phase 3 are planned to support logical deactivate/restore. Physical deletion inside the app is not implemented unless a future accepted phase adds it.
 
-## Limitations
+Users can remove local app data through Android system app settings or by uninstalling the app. Uninstalling or clearing app data may permanently remove local TechQuote data from the device.
 
-Local data may be lost if the device is lost, reset, damaged, replaced, or if the app is uninstalled without backup. Users are responsible for backups and protecting physical device access.
+## Security And User Responsibility
+
+TechQuote uses app-private storage, but local database encryption is not currently implemented. The user is responsible for protecting device access with Android security controls such as screen lock and device encryption.
+
+Local data may be lost if the device is lost, damaged, reset, replaced, or if the app is uninstalled or cleared before backup/import exists.
+
+Users are responsible for having authorization to enter third-party personal or business data into the app.
 
 ## Future Changes
 
-Future cloud, account, analytics, payment, or external integration features require visible policy updates and consent where applicable.
+Future cloud, account, analytics, payment, export, sharing, backup/import, photo, PDF, or external integration features require policy updates before release. Any Google Play Data Safety declaration must match the app behavior, this policy, in-app disclosures, permissions, and dependency behavior.
 
 ## Contact
 
-SUPPORT_EMAIL_REPLACE_BEFORE_RELEASE
+A final privacy contact must be added before commercial publication.

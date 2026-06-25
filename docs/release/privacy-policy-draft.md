@@ -6,6 +6,9 @@ This release draft mirrors `docs/legal/privacy-policy.md`.
 
 Before Google Play publication, this policy must be available inside the app, in Google Play Console, and at a stable public URL.
 
-## Support Contact
+## Release Blockers
 
-SUPPORT_EMAIL_REPLACE_BEFORE_RELEASE
+- Final privacy contact.
+- Final responsible developer or legal entity.
+- Final effective date.
+- Stable public privacy policy URL.

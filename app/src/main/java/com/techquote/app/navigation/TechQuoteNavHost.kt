@@ -1,9 +1,11 @@
 package com.techquote.app.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.techquote.app.ui.catalog.CatalogRoute
 import com.techquote.app.ui.clients.ClientDetailRoute
 import com.techquote.app.ui.clients.ClientFormRoute
@@ -42,18 +44,51 @@ fun TechQuoteNavHost() {
         composable(TechQuoteRoutes.Clients) {
             ClientsListRoute(
                 onNavigateBack = { navController.navigateUp() },
-                onOpenClient = { navController.navigate(TechQuoteRoutes.ClientDetail) },
+                onOpenClient = { clientId -> navController.navigate(TechQuoteRoutes.clientDetail(clientId)) },
                 onCreateClient = { navController.navigate(TechQuoteRoutes.ClientForm) },
+                onOpenArchived = { navController.navigate(TechQuoteRoutes.ClientsArchived) },
             )
         }
-        composable(TechQuoteRoutes.ClientDetail) {
+        composable(TechQuoteRoutes.ClientsArchived) {
+            ClientsListRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onOpenClient = { clientId -> navController.navigate(TechQuoteRoutes.clientDetail(clientId)) },
+                onCreateClient = { navController.navigate(TechQuoteRoutes.ClientForm) },
+                onOpenArchived = { navController.navigateUp() },
+                showArchived = true,
+            )
+        }
+        composable(
+            route = TechQuoteRoutes.ClientDetail,
+            arguments = listOf(navArgument(TechQuoteRoutes.ClientIdArg) { type = NavType.StringType }),
+        ) {
             ClientDetailRoute(
                 onNavigateBack = { navController.navigateUp() },
-                onEditClient = { navController.navigate(TechQuoteRoutes.ClientForm) },
+                onEditClient = { clientId -> navController.navigate(TechQuoteRoutes.clientEdit(clientId)) },
             )
         }
         composable(TechQuoteRoutes.ClientForm) {
-            ClientFormRoute(onNavigateBack = { navController.navigateUp() })
+            ClientFormRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onSaved = { clientId ->
+                    navController.navigate(TechQuoteRoutes.clientDetail(clientId)) {
+                        popUpTo(TechQuoteRoutes.Clients)
+                    }
+                },
+            )
+        }
+        composable(
+            route = TechQuoteRoutes.ClientEdit,
+            arguments = listOf(navArgument(TechQuoteRoutes.ClientIdArg) { type = NavType.StringType }),
+        ) {
+            ClientFormRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onSaved = { clientId ->
+                    navController.navigate(TechQuoteRoutes.clientDetail(clientId)) {
+                        popUpTo(TechQuoteRoutes.Clients)
+                    }
+                },
+            )
         }
         composable(TechQuoteRoutes.Catalog) {
             CatalogRoute(onNavigateBack = { navController.navigateUp() })
