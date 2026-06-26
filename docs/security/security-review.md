@@ -2,16 +2,16 @@
 
 ## Current Review
 
-Phase 4 adds app-private Room persistence for local quotes and quote line items on top of Phase 2 client management and Phase 3 catalog management. The app can create, edit, search, inspect, archive/restore clients; create, edit, search, inspect, deactivate/restore catalog items; and create, edit draft, inspect, search, filter, sort, duplicate, change status, archive/restore quotes. Reports, PDFs, photos, FileProvider, backup/import, sharing, telemetry, analytics, advertising SDK, login, sync, payments, fiscal invoicing, and external integrations remain out of scope.
+Phase 5 adds local quote PDF generation, preview, SAF save-copy, and user-initiated FileProvider sharing/opening on top of Phase 4 quotes. The app can create, edit, search, inspect, archive/restore clients; create, edit, search, inspect, deactivate/restore catalog items; create, edit draft, inspect, search, filter, sort, duplicate, change status, archive/restore quotes; and generate/share/save/open quote PDFs locally. Reports PDFs, photos, backup/import, telemetry, analytics, advertising SDK, login, sync, payments, fiscal invoicing, and external integrations remain out of scope.
 
 ## Findings
 
 | Area | Status | Notes |
 | --- | --- | --- |
-| Manifest permissions | Pass | No permissions declared in the Phase 3 source manifest |
+| Manifest permissions | Pass | No `<uses-permission>` entries are declared in the Phase 5 source manifest |
 | Secrets | Pass | `local.properties`, signing file patterns, `.env`, caches, SDKs, and builds are ignored |
-| Storage | Pass with open risk | Client, catalog, and quote data are stored in app-private Room storage; local database encryption remains open before production sensitive data |
-| Sharing | Not applicable | No sharing implemented |
+| Storage | Pass with open risk | Client, catalog, and quote data are stored in app-private Room storage; business profile fields are stored in app-private preferences; temporary PDFs are stored in app-private cache; local database encryption remains open before production sensitive data |
+| Sharing | Pass with residual user-control risk | Quote PDFs are shared/opened only by explicit user action through a limited FileProvider `content://` URI with temporary read grants |
 | Logs | Pass | No production `Log.` usage found in app source |
 | Backup and transfer | Pass | Backup and data extraction rules exclude the Room database |
 | Dependencies | Pass for Phase 4 | Dependencies are pinned in the version catalog; lint reports only version-availability warnings |
@@ -98,3 +98,29 @@ Phase 4 adds app-private Room persistence for local quotes and quote line items 
 - `.\gradlew.bat test`: passed with 67 unit tests, 0 failures, 0 errors, 0 skipped.
 - Lint passed with 0 errors and 4 version-availability warnings.
 - Full details are tracked in `docs/qa/phase-4-verification.md`.
+
+## Dependency Update Notes
+
+- 2026-06-25: Gradle wrapper was updated to `9.6.0`, `kotlinx-coroutines-test` to `1.11.0`, and `kotlinx-serialization-bom` to `1.11.0`.
+- Kotlin `2.4.0` was tested and rejected for now because Hilt `2.59.2`, the latest stable Dagger/Hilt release in Maven metadata, cannot process Kotlin metadata `2.4.0`.
+- Remaining Kotlin version lint warning is a compatibility pin, not a known vulnerability finding.
+
+## Phase 5 Review Notes
+
+- Source manifest remains free of `<uses-permission>` entries.
+- FileProvider is non-exported, uses authority `${applicationId}.fileprovider`, and exposes only `cache/quote-pdfs/`.
+- Temporary generated PDFs live in app-private cache and are eligible for cleanup after the retention window.
+- User copies are written only through SAF after explicit destination selection.
+- PDF share/open flows use `content://` and temporary read grants, never `file://`.
+- No network, WebView, telemetry, analytics, crash reporter, ad SDK, payment SDK, fiscal invoice, or external processor was added.
+- Generated PDF content includes a budget-not-invoice disclaimer.
+- Local business profile fields are stored in app-private preferences and used only for PDF header content.
+
+## Phase 5 Verification
+
+- `.\gradlew.bat :app:assembleDebug`: passed.
+- `.\gradlew.bat :app:assembleRelease`: passed.
+- `.\gradlew.bat test`: passed with 75 unit tests, 0 failures, 0 errors, 0 skipped.
+- `.\gradlew.bat lint`: passed with 0 errors and 1 known Kotlin version-availability warning.
+- `.\gradlew.bat :app:connectedDebugAndroidTest`: passed on `Pixel_10_Pro_XL(AVD) - 17` with 31 tests, 0 failures, 0 errors, 0 skipped.
+- Full details are tracked in `docs/qa/phase-5-verification.md`.

@@ -2,7 +2,7 @@
 
 ## Scope
 
-Phase 4 keeps the app offline-first and connects local Room persistence for clients, services, products/spare parts, and quotes. Reports, PDFs, sharing, imports, exports, backups, photos, sync, payments, and integrations remain placeholder or future-scope routes.
+Phase 5 keeps the app offline-first and connects local Room persistence for clients, services, products/spare parts, quotes, and local quote PDF output. Reports, report PDFs, imports, backups, photos, sync, payments, fiscal invoicing, and integrations remain placeholder or future-scope routes.
 
 ## Route List
 
@@ -27,12 +27,12 @@ Phase 4 keeps the app offline-first and connects local Room persistence for clie
 | `catalog/products/form/{catalogItemId}` | Edit product form | Back to previous screen |
 | `quotes` | Active quotes list | Back to dashboard |
 | `quotes/archived` | Archived quotes list | Back to active quotes or previous screen |
-| `quotes/detail/{quoteId}` | Persisted quote detail | Back to quotes list or previous screen |
+| `quotes/detail/{quoteId}` | Persisted quote detail with local PDF actions and in-route preview state | Back to quotes list or previous screen |
 | `quotes/form` | Create quote form | Back to previous screen |
 | `quotes/form/{quoteId}` | Edit draft quote form | Back to previous screen |
 | `reports` | Reports list mock | Back to dashboard |
 | `reports/form` | Report create/edit mock form | Back to previous screen |
-| `settings` | Settings mock | Back to dashboard |
+| `settings` | Settings with local business profile fields and legal entry | Back to dashboard |
 | `legal` | Legal and privacy hub | Back to settings or dashboard |
 | `legal/privacy-policy` | Offline privacy policy draft | Back to legal hub |
 | `legal/terms-of-use` | Offline terms of use draft | Back to legal hub |
@@ -54,8 +54,11 @@ Phase 4 keeps the app offline-first and connects local Room persistence for clie
 - Archived quote rows navigate to detail and expose restore from the detail screen.
 - Quote form save creates or updates a local Room quote, then navigates to detail.
 - Quote detail allows edit only when the quote is `DRAFT`, duplicate into a new `DRAFT`, status transitions, archive, and restore.
+- Quote detail allows explicit local PDF generation, preview, share, open external, save copy, and regenerate actions when quote data is exportable.
+- PDF preview is handled inside the quote detail route state and does not add a new navigation route.
+- Settings stores local business profile fields used in quote PDF headers.
 - Legal screens are local/offline and must remain readable without network access.
-- Report, export, sharing, backup/import, photo, PDF, and integration routes remain visual placeholders until their approved phase.
+- Report, report PDF, backup/import, photo, and integration routes remain visual placeholders until their approved phase.
 
 ## Future Integration Points
 

@@ -13,10 +13,11 @@ TechQuote MVP is offline-first and local-first. No app data is sent to external 
 
 ## Sharing
 
-- Use FileProvider for future file sharing.
+- Use FileProvider for quote PDF sharing/opening.
 - Share only `content://` URIs.
 - Grant temporary read access only for explicit user actions.
 - Never expose `file://` URIs.
+- Keep FileProvider paths limited to the specific feature directory, currently `cache/quote-pdfs/`.
 
 ## Secrets
 

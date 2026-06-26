@@ -6,10 +6,18 @@ import com.techquote.app.data.local.catalog.CatalogDao
 import com.techquote.app.data.local.client.ClientDao
 import com.techquote.app.data.local.db.TechQuoteDatabase
 import com.techquote.app.data.local.quote.QuoteDao
+import com.techquote.app.data.pdf.AndroidPdfFileStorage
+import com.techquote.app.data.pdf.AndroidPdfPreviewStateProvider
+import com.techquote.app.data.pdf.AndroidPdfShareManager
+import com.techquote.app.data.pdf.AndroidQuotePdfGenerator
+import com.techquote.app.data.pdf.PdfFileStorage
+import com.techquote.app.data.pdf.PdfPreviewStateProvider
+import com.techquote.app.data.pdf.PdfShareManager
 import com.techquote.app.data.repository.RoomClientRepository
 import com.techquote.app.data.repository.RoomProductCatalogRepository
 import com.techquote.app.data.repository.RoomQuoteRepository
 import com.techquote.app.data.repository.RoomServiceCatalogRepository
+import com.techquote.app.data.settings.SharedPreferencesBusinessProfileRepository
 import com.techquote.app.domain.client.ClientRepository
 import com.techquote.app.domain.client.ClientValidator
 import com.techquote.app.domain.catalog.ProductCatalogRepository
@@ -18,12 +26,17 @@ import com.techquote.app.domain.catalog.ServiceCatalogRepository
 import com.techquote.app.domain.catalog.ServiceCatalogValidator
 import com.techquote.app.domain.quote.QuoteRepository
 import com.techquote.app.domain.quote.QuoteValidator
+import com.techquote.app.domain.pdf.QuotePdfDocumentFactory
+import com.techquote.app.domain.pdf.QuotePdfGenerator
+import com.techquote.app.domain.settings.BusinessProfileRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -49,6 +62,26 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindQuoteRepository(repository: RoomQuoteRepository): QuoteRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindBusinessProfileRepository(repository: SharedPreferencesBusinessProfileRepository): BusinessProfileRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindQuotePdfGenerator(generator: AndroidQuotePdfGenerator): QuotePdfGenerator
+
+    @Binds
+    @Singleton
+    abstract fun bindPdfFileStorage(storage: AndroidPdfFileStorage): PdfFileStorage
+
+    @Binds
+    @Singleton
+    abstract fun bindPdfPreviewStateProvider(provider: AndroidPdfPreviewStateProvider): PdfPreviewStateProvider
+
+    @Binds
+    @Singleton
+    abstract fun bindPdfShareManager(manager: AndroidPdfShareManager): PdfShareManager
 }
 
 @Module
@@ -104,6 +137,11 @@ object DataModule {
     }
 
     @Provides
+    fun provideQuotePdfDocumentFactory(): QuotePdfDocumentFactory {
+        return QuotePdfDocumentFactory()
+    }
+
+    @Provides
     @Named("clientIdGenerator")
     fun provideClientIdGenerator(): () -> String {
         return { UUID.randomUUID().toString() }
@@ -125,6 +163,18 @@ object DataModule {
     @Named("clock")
     fun provideClock(): () -> Long {
         return { System.currentTimeMillis() }
+    }
+
+    @Provides
+    @Named("ioDispatcher")
+    fun provideIoDispatcher(): CoroutineDispatcher {
+        return Dispatchers.IO
+    }
+
+    @Provides
+    @Named("defaultDispatcher")
+    fun provideDefaultDispatcher(): CoroutineDispatcher {
+        return Dispatchers.Default
     }
 
     @Provides

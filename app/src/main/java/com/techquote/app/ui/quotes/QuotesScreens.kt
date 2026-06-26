@@ -4,6 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
@@ -16,9 +20,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.techquote.app.data.pdf.AndroidPdfShareManager
 import com.techquote.app.domain.quote.DiscountType
 import com.techquote.app.domain.quote.QuoteLineItemFieldErrors
 import com.techquote.app.domain.quote.QuoteLineItemType
@@ -38,9 +44,16 @@ import com.techquote.app.ui.components.SecondaryButton
 import com.techquote.app.ui.components.SectionHeader
 import com.techquote.app.ui.components.TechQuoteScaffold
 import com.techquote.app.ui.model.DemoStatus
+import com.techquote.app.ui.pdf.PdfPreviewScreen
+import com.techquote.app.ui.pdf.QuotePdfActionsSection
+import com.techquote.app.ui.pdf.QuotePdfEvent
+import com.techquote.app.ui.pdf.QuotePdfUiState
+import com.techquote.app.ui.pdf.QuotePdfViewModel
+import com.techquote.app.ui.pdf.SavePdfCopyDialog
 import com.techquote.app.ui.previews.TechQuotePhonePreviews
 import com.techquote.app.ui.theme.TechQuoteDesign
 import com.techquote.app.ui.theme.TechQuoteTheme
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun QuotesListRoute(
@@ -85,9 +98,21 @@ fun QuoteDetailRoute(
     onEditQuote: (String) -> Unit,
     onDuplicatedQuote: (String) -> Unit,
     viewModel: QuoteDetailViewModel = hiltViewModel(),
+    pdfViewModel: QuotePdfViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val pdfUiState by pdfViewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
+    val context = LocalContext.current
+    val savePdfLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.CreateDocument(AndroidPdfShareManager.PdfMimeType),
+    ) { uri ->
+        if (uri != null) {
+            pdfViewModel.saveCopy(uri)
+        } else {
+            pdfViewModel.cancelSaveCopy()
+        }
+    }
 
     LaunchedEffect(uiState.feedbackMessage) {
         val message = uiState.feedbackMessage
@@ -103,17 +128,64 @@ fun QuoteDetailRoute(
             onDuplicatedQuote(duplicatedId)
         }
     }
+    LaunchedEffect(pdfUiState.feedbackMessage) {
+        val message = pdfUiState.feedbackMessage
+        if (message != null) {
+            snackbarHostState.showSnackbar(message)
+            pdfViewModel.clearFeedback()
+        }
+    }
+    LaunchedEffect(Unit) {
+        pdfViewModel.events.collectLatest { event ->
+            try {
+                when (event) {
+                    is QuotePdfEvent.Open -> context.startActivity(event.intent)
+                    is QuotePdfEvent.Share -> context.startActivity(Intent.createChooser(event.intent, "Compartir PDF"))
+                }
+            } catch (_: ActivityNotFoundException) {
+                snackbarHostState.showSnackbar("No hay una app disponible para abrir o compartir el PDF.")
+            }
+        }
+    }
 
-    QuoteDetailScreen(
-        uiState = uiState,
-        onNavigateBack = onNavigateBack,
-        onEditQuote = { uiState.quote?.let { onEditQuote(it.id) } },
-        onChangeStatus = viewModel::changeStatus,
-        onDuplicateQuote = viewModel::duplicate,
-        onArchiveQuote = viewModel::archive,
-        onRestoreQuote = viewModel::restore,
-        snackbarHostState = snackbarHostState,
-    )
+    if (pdfUiState.isPreviewVisible) {
+        PdfPreviewScreen(
+            uiState = pdfUiState,
+            onNavigateBack = pdfViewModel::closePreview,
+            onSharePdf = pdfViewModel::sharePdf,
+            onSavePdf = pdfViewModel::requestSaveCopy,
+            onOpenPdf = pdfViewModel::openPdf,
+            onRegeneratePdf = pdfViewModel::regeneratePreviewPdf,
+            onDismissPdfError = pdfViewModel::clearError,
+        )
+    } else {
+        QuoteDetailScreen(
+            uiState = uiState,
+            onNavigateBack = onNavigateBack,
+            onEditQuote = { uiState.quote?.let { onEditQuote(it.id) } },
+            onChangeStatus = viewModel::changeStatus,
+            onDuplicateQuote = viewModel::duplicate,
+            onArchiveQuote = viewModel::archive,
+            onRestoreQuote = viewModel::restore,
+            pdfUiState = pdfUiState,
+            onGeneratePdf = pdfViewModel::generatePdf,
+            onPreviewPdf = pdfViewModel::previewPdf,
+            onSharePdf = pdfViewModel::sharePdf,
+            onSavePdf = pdfViewModel::requestSaveCopy,
+            onOpenPdf = pdfViewModel::openPdf,
+            onRegeneratePdf = pdfViewModel::generatePdf,
+            onDismissPdfError = pdfViewModel::clearError,
+            snackbarHostState = snackbarHostState,
+        )
+    }
+    val readyPdf = pdfUiState.ready
+    if (pdfUiState.saveDialogVisible && readyPdf != null) {
+        SavePdfCopyDialog(
+            fileName = readyPdf.fileName,
+            onConfirm = { savePdfLauncher.launch(readyPdf.fileName) },
+            onDismiss = pdfViewModel::cancelSaveCopy,
+        )
+    }
 }
 
 @Composable
@@ -263,6 +335,14 @@ fun QuoteDetailScreen(
     onDuplicateQuote: () -> Unit,
     onArchiveQuote: () -> Unit,
     onRestoreQuote: () -> Unit,
+    pdfUiState: QuotePdfUiState,
+    onGeneratePdf: () -> Unit,
+    onPreviewPdf: () -> Unit,
+    onSharePdf: () -> Unit,
+    onSavePdf: () -> Unit,
+    onOpenPdf: () -> Unit,
+    onRegeneratePdf: () -> Unit,
+    onDismissPdfError: () -> Unit,
     modifier: Modifier = Modifier,
     snackbarHostState: SnackbarHostState = SnackbarHostState(),
 ) {
@@ -304,6 +384,16 @@ fun QuoteDetailScreen(
                     ListItemCard(title = "Descuento", subtitle = quote.discountLabel)
                     ListItemCard(title = "Impuesto", subtitle = quote.taxLabel)
                     ListItemCard(title = "Total", subtitle = quote.totalLabel)
+                    QuotePdfActionsSection(
+                        uiState = pdfUiState,
+                        onGeneratePdf = onGeneratePdf,
+                        onPreviewPdf = onPreviewPdf,
+                        onSharePdf = onSharePdf,
+                        onSavePdf = onSavePdf,
+                        onOpenPdf = onOpenPdf,
+                        onRegeneratePdf = onRegeneratePdf,
+                        onDismissPdfError = onDismissPdfError,
+                    )
                     SectionHeader(title = "Ítems")
                     quote.items.forEach { item ->
                         ListItemCard(
@@ -940,6 +1030,14 @@ private fun QuoteDetailScreenPreview() {
             onDuplicateQuote = {},
             onArchiveQuote = {},
             onRestoreQuote = {},
+            pdfUiState = QuotePdfUiState(),
+            onGeneratePdf = {},
+            onPreviewPdf = {},
+            onSharePdf = {},
+            onSavePdf = {},
+            onOpenPdf = {},
+            onRegeneratePdf = {},
+            onDismissPdfError = {},
         )
     }
 }

@@ -9,6 +9,7 @@ import androidx.compose.ui.test.performScrollTo
 import com.techquote.app.domain.quote.DiscountType
 import com.techquote.app.domain.quote.QuoteLineItemType
 import com.techquote.app.domain.quote.QuoteStatus
+import com.techquote.app.ui.pdf.QuotePdfUiState
 import com.techquote.app.ui.theme.TechQuoteTheme
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -55,13 +56,54 @@ class QuotesScreenUiTest {
                     onDuplicateQuote = {},
                     onArchiveQuote = {},
                     onRestoreQuote = {},
+                    pdfUiState = QuotePdfUiState(),
+                    onGeneratePdf = {},
+                    onPreviewPdf = {},
+                    onSharePdf = {},
+                    onSavePdf = {},
+                    onOpenPdf = {},
+                    onRegeneratePdf = {},
+                    onDismissPdfError = {},
                     snackbarHostState = SnackbarHostState(),
                 )
             }
         }
 
         composeRule.onNodeWithText("Enviar").performScrollTo().assertIsDisplayed()
+        composeRule.onNodeWithText("Generar PDF").performScrollTo().assertIsDisplayed()
+        composeRule.onNodeWithText("Guardar copia").performScrollTo().assertIsDisplayed()
         composeRule.onNodeWithText("$ 1210.00").performScrollTo().assertIsDisplayed()
+    }
+
+    @Test
+    fun quoteDetailShowsPdfExportUnavailableState() {
+        composeRule.setContent {
+            TechQuoteTheme {
+                QuoteDetailScreen(
+                    uiState = QuoteDetailUiState(
+                        isLoading = false,
+                        quote = previewQuoteDetail(),
+                    ),
+                    onNavigateBack = {},
+                    onEditQuote = {},
+                    onChangeStatus = {},
+                    onDuplicateQuote = {},
+                    onArchiveQuote = {},
+                    onRestoreQuote = {},
+                    pdfUiState = QuotePdfUiState(exportUnavailableMessage = "El presupuesto no tiene ítems para exportar."),
+                    onGeneratePdf = {},
+                    onPreviewPdf = {},
+                    onSharePdf = {},
+                    onSavePdf = {},
+                    onOpenPdf = {},
+                    onRegeneratePdf = {},
+                    onDismissPdfError = {},
+                    snackbarHostState = SnackbarHostState(),
+                )
+            }
+        }
+
+        composeRule.onNodeWithText("El presupuesto no tiene ítems para exportar.").performScrollTo().assertIsDisplayed()
     }
 
     @Test

@@ -4,7 +4,7 @@
 
 Draft only. This is not legal advice.
 
-Phase 1 added offline in-app screens for privacy policy and terms of use. Phase 2 added local client persistence. Phase 3 added catalog policy coverage. Phase 4 adds local quote policy coverage, but commercial publication still requires professional review.
+Phase 1 added offline in-app screens for privacy policy and terms of use. Phase 2 added local client persistence. Phase 3 added catalog policy coverage. Phase 4 adds local quote policy coverage. Phase 5 adds local quote PDF generation, preview, SAF save-copy, and user-initiated FileProvider sharing/opening, but commercial publication still requires professional review.
 
 Current legal content is not approved for commercial publication.
 
@@ -45,3 +45,15 @@ Quote work must not be considered publication-ready until privacy, terms, and se
 - no local encryption claim unless implemented;
 - archive/restore behavior versus physical deletion;
 - user responsibility for validating prices, taxes, discounts, commercial terms, legal language, and local compliance before using a quote.
+
+## Phase 5 Legal Gate
+
+Quote PDF work must not be considered publication-ready until privacy, terms, and service/support policy drafts accurately cover:
+
+- local PDF generation from quote data;
+- temporary app-cache PDF files;
+- user-selected SAF copies;
+- user-initiated sharing/opening with other apps;
+- no invoice, receipt, tax filing, fiscal, accounting, legal, safety, or certification compliance claim;
+- the PDF disclaimer: `Este documento es un presupuesto de trabajo y no constituye una factura fiscal.`;
+- user responsibility for reviewing commercial terms and compliance before sharing or saving a PDF.

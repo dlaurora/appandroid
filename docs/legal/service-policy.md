@@ -13,7 +13,7 @@ Release blockers before publication:
 
 ## Service Model
 
-TechQuote is currently designed as an offline-first Android app. Implemented data is stored locally on the user's device. The current MVP does not provide cloud accounts, cloud sync, managed backup, server-side storage, remote administration, analytics, advertising, or external integrations.
+TechQuote is currently designed as an offline-first Android app. Implemented data is stored locally on the user's device. Quote PDFs can be generated locally, previewed locally, saved by user-selected destination, and shared/opened by explicit user action. The current MVP does not provide cloud accounts, cloud sync, managed backup, server-side storage, remote administration, analytics, advertising, or external integrations.
 
 ## Supported Use
 
@@ -25,6 +25,7 @@ Current implemented support scope:
 - local service catalog guidance;
 - local product/spare-part catalog guidance;
 - explanation of local prices, quantities, SKU, categories, activation, and deactivation behavior;
+- explanation of local quote PDF generation, preview, save-copy, and share/open behavior;
 - troubleshooting build or app behavior during development.
 
 ## Support Limits
@@ -35,6 +36,7 @@ TechQuote support does not provide:
 - 24/7 availability unless a later business decision explicitly creates it;
 - legal, tax, accounting, fiscal, or professional certification advice;
 - guarantee that user-entered prices, catalog items, quotes, or reports are accurate;
+- guarantee that generated PDFs are legally, fiscally, professionally, or commercially sufficient;
 - recovery of data from a lost, reset, damaged, cleared, or uninstalled device when backup/import is not implemented;
 - guarantee of compatibility with every Android device, manufacturer modification, or unsupported OS version;
 - support for fraudulent, unlawful, or unauthorized use.

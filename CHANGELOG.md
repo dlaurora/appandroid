@@ -13,11 +13,14 @@
 - Phase 3 verification coverage for catalog ViewModels, UI mappers, SKU-only search, migration, and file database persistence after reopen.
 - Phase 4 local quote management with Room, including quote numbers, line-item snapshots, draft create/edit, deterministic totals, tax/discount calculation, status transitions, duplication, archive/restore, active/archived lists, and migration to schema version 3.
 - Phase 4 quote UI, ViewModels, domain use cases, calculator, validator, state machine, Room DAO/repository, schema export, and focused unit/UI/integration tests.
+- Phase 5 local quote PDF generation with Android `PdfDocument`, local `PdfRenderer` preview, app-cache temporary files, SAF save-copy, and FileProvider `content://` share/open flows.
+- Local business profile settings for PDF header data.
 
 ### Fixed
 
 - Guarded client phone-only search and product SKU-only search so empty text queries do not match every active record.
 - Aligned `kotlinx-serialization` runtime versions for Room migration validation.
+- Updated Gradle wrapper, coroutines test, and serialization BOM after lint dependency warnings; Kotlin remains pinned because current stable Hilt cannot process Kotlin 2.4 metadata.
 
 ### Security
 
@@ -27,3 +30,4 @@
 - Excluded the Room database from Android Auto Backup and Data Extraction Rules until backup/import is explicitly approved.
 - Kept Phase 3 offline-only with no new permissions, no external integrations, no physical delete, no catalog logging, and no floating-point money storage.
 - Kept Phase 4 offline-only with no new permissions, no PDF/share/FileProvider behavior, no physical delete, no quote logging, no floating-point money calculations, and no external integrations.
+- Kept Phase 5 offline-only with no new permissions, no network, no WebView, no external processors, limited FileProvider exposure to `cache/quote-pdfs/`, temporary read grants, and no `file://` sharing.

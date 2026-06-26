@@ -13,7 +13,7 @@ Release blockers before publication:
 
 ## Service Scope
 
-TechQuote is a local Android productivity tool for technicians and small service workflows. Current implemented features include local client management, a local catalog of services and products/spare parts, and local quote preparation with deterministic monetary calculations.
+TechQuote is a local Android productivity tool for technicians and small service workflows. Current implemented features include local client management, a local catalog of services and products/spare parts, local quote preparation with deterministic monetary calculations, and local quote PDF generation/preview/share/save flows.
 
 TechQuote is not a fiscal invoicing system, accounting system, legal advice service, tax advice service, professional certification system, contract generator, payment processor, or substitute for official documents required by local authorities.
 
@@ -25,6 +25,7 @@ The user is responsible for:
 - verifying service, product, SKU, category, price, quantity, tax, discount, and commercial information;
 - keeping catalog values current and accurate;
 - confirming that every quote is correct before using it;
+- confirming that every generated, saved, opened, or shared PDF is correct before using it;
 - confirming that any future report, export, or shared document is correct before using it;
 - complying with applicable laws and professional obligations;
 - protecting device access;
@@ -35,7 +36,7 @@ Catalog values and quotes are user-managed business data. They are not guarantee
 
 ## Availability And Data Recovery
 
-The current MVP works locally on the device. Backup/import, PDF export, document sharing, and cloud sync are not implemented. TechQuote does not currently guarantee recovery of data lost through device loss, damage, replacement, reset, app uninstall, app data clearing, or user error.
+The current MVP works locally on the device. Quote PDF generation, preview, save-copy, open, and share are implemented as explicit local/user actions. Backup/import, report PDF export, and cloud sync are not implemented. TechQuote does not currently guarantee recovery of data lost through device loss, damage, replacement, reset, app uninstall, app data clearing, user error, or deletion of files saved outside the app.
 
 ## Prohibited Use
 

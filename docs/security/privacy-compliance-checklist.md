@@ -19,6 +19,12 @@
 - [x] Phase 4 recalculates persisted totals in domain logic instead of trusting UI totals.
 - [x] Phase 4 quote tests and previews use fictitious data only.
 - [ ] Phase 4 does not yet implement a permanent quote delete/data-erasure flow.
+- [x] Phase 5 generates quote PDFs locally with Android platform APIs and no network transmission.
+- [x] Phase 5 adds no Android permissions, telemetry, analytics, ads, crash reporters, accounts, sync, or external processors.
+- [x] Phase 5 stores temporary PDFs only in app-private cache and shares them only through a limited FileProvider `content://` URI.
+- [x] Phase 5 saves user copies only after explicit SAF destination selection.
+- [x] Phase 5 adds local business profile fields in app-private preferences for PDF header content.
+- [ ] Phase 5 generated PDFs can leave app control after explicit user share/save/open actions.
 - [x] In-app privacy policy draft is available offline.
 - [ ] Final privacy policy requires professional review before publication.
 - [ ] Google Play Data Safety draft must be revalidated before release.
