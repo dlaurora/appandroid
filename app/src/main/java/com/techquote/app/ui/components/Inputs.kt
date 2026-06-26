@@ -38,6 +38,7 @@ fun FormTextField(
     modifier: Modifier = Modifier,
     supportingText: String? = null,
     isError: Boolean = false,
+    enabled: Boolean = true,
 ) {
     OutlinedTextField(
         value = value,
@@ -48,6 +49,7 @@ fun FormTextField(
         label = { Text(text = label) },
         supportingText = supportingText?.let { { Text(text = it) } },
         isError = isError,
+        enabled = enabled,
         shape = TechQuoteDesign.shapes.small,
     )
 }
@@ -82,6 +84,8 @@ fun DateField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     supportingText: String? = "Fecha escrita manualmente en esta fase.",
+    isError: Boolean = false,
+    enabled: Boolean = true,
 ) {
     OutlinedTextField(
         value = value,
@@ -91,6 +95,8 @@ fun DateField(
             .heightIn(min = TechQuoteDesign.spacing.touchTargetMin),
         label = { Text(text = label) },
         supportingText = supportingText?.let { { Text(text = it) } },
+        isError = isError,
+        enabled = enabled,
         placeholder = { Text(text = "AAAA-MM-DD") },
         singleLine = true,
         shape = TechQuoteDesign.shapes.small,

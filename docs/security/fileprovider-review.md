@@ -12,10 +12,12 @@ Only this path may be exposed:
 
 No files directory, database directory, external storage directory, root directory, or broad cache path is exposed.
 
+Phase 6 report PDFs reuse the same private PDF cache path and FileProvider entry. Report image attachment files under app-private `files/report-attachments/` are not exposed through FileProvider.
+
 ## Allowed Operations
 
-- Share generated quote PDFs with `Intent.ACTION_SEND`.
-- Open generated quote PDFs with `Intent.ACTION_VIEW`.
+- Share generated quote/report PDFs with `Intent.ACTION_SEND`.
+- Open generated quote/report PDFs with `Intent.ACTION_VIEW`.
 
 Both operations use MIME type `application/pdf` and `Intent.FLAG_GRANT_READ_URI_PERMISSION`.
 

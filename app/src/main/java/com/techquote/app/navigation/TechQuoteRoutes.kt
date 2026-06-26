@@ -4,6 +4,7 @@ object TechQuoteRoutes {
     const val ClientIdArg = "clientId"
     const val CatalogItemIdArg = "catalogItemId"
     const val QuoteIdArg = "quoteId"
+    const val ReportIdArg = "reportId"
 
     const val Dashboard = "dashboard"
     const val Clients = "clients"
@@ -28,7 +29,11 @@ object TechQuoteRoutes {
     const val QuoteForm = "quotes/form"
     const val QuoteEdit = "quotes/form/{$QuoteIdArg}"
     const val Reports = "reports"
+    const val ReportsArchived = "reports/archived"
+    const val ReportDetail = "reports/detail/{$ReportIdArg}"
     const val ReportForm = "reports/form"
+    const val ReportEdit = "reports/form/{$ReportIdArg}"
+    const val ReportFromQuote = "reports/from-quote/{$QuoteIdArg}"
     const val Settings = "settings"
     const val LegalPrivacy = "legal"
     const val PrivacyPolicy = "legal/privacy-policy"
@@ -58,7 +63,11 @@ object TechQuoteRoutes {
         QuoteForm,
         QuoteEdit,
         Reports,
+        ReportsArchived,
+        ReportDetail,
         ReportForm,
+        ReportEdit,
+        ReportFromQuote,
         Settings,
         LegalPrivacy,
         PrivacyPolicy,
@@ -95,5 +104,17 @@ object TechQuoteRoutes {
 
     fun quoteEdit(quoteId: String): String {
         return "quotes/form/$quoteId"
+    }
+
+    fun reportDetail(reportId: String): String {
+        return "reports/detail/$reportId"
+    }
+
+    fun reportEdit(reportId: String): String {
+        return "reports/form/$reportId"
+    }
+
+    fun reportFromQuote(quoteId: String): String {
+        return "reports/from-quote/$quoteId"
     }
 }

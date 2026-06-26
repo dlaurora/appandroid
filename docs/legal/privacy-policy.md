@@ -13,7 +13,7 @@ Release blockers before publication:
 
 ## App Scope
 
-TechQuote is an offline-first Android app for local technical business workflows. Current implemented data is stored on the user's device in app-private storage. The app supports local quote PDF generation, local preview, user-selected PDF save-copy, and user-initiated PDF sharing/opening. The app does not currently implement accounts, cloud sync, analytics, advertising, external servers, backup/import, photos, report PDF export, or external integrations.
+TechQuote is an offline-first Android app for local technical business workflows. Current implemented data is stored on the user's device in app-private storage. The app supports local quote and report PDF generation, local preview, user-selected PDF save-copy, user-initiated PDF sharing/opening, and report image attachment through Android Photo Picker. The app does not currently implement accounts, cloud sync, analytics, advertising, external servers, backup/import, camera capture, or external integrations.
 
 ## Data Users May Enter
 
@@ -57,11 +57,24 @@ The implemented PDF features may also create temporary quote PDF files containin
 - email;
 - address.
 
+The implemented technical report features may also store:
+
+- report numbers;
+- client references and optional approved quote references;
+- report titles and service dates;
+- technician names;
+- device or asset descriptions;
+- reported problems, diagnosis, work performed, and recommendations;
+- processed image attachments selected by the user through Android Photo Picker;
+- report status and archive state.
+
+The implemented report PDF features may also create temporary report PDF files containing report, client, attachment image, and local business profile data.
+
 ## Where Data Is Stored
 
-Implemented records are stored locally on the user's device in the app's private Room database. Local business profile settings are stored in app-private preferences. Temporary generated PDFs are stored in app-private cache. TechQuote does not transmit this data to a developer server in the current MVP.
+Implemented records are stored locally on the user's device in the app's private Room database. Local business profile settings are stored in app-private preferences. Processed report image copies are stored in app-private files. Temporary generated PDFs are stored in app-private cache. TechQuote does not transmit this data to a developer server in the current MVP.
 
-The Room database is excluded from Android Auto Backup and Data Extraction Rules in the current project configuration. Backup/import is not implemented yet.
+The Room database and app-private report attachment directory are excluded from Android Auto Backup and Data Extraction Rules in the current project configuration. Backup/import is not implemented yet.
 
 PDF copies saved through Android's system document picker are stored wherever the user chooses. PDFs shared or opened with another app leave TechQuote control after the user explicitly chooses that action.
 
@@ -70,7 +83,8 @@ PDF copies saved through Android's system document picker are stored wherever th
 - No accounts.
 - No location collection.
 - No contact-book access.
-- No camera or photo access.
+- No camera access.
+- No broad gallery or storage permission; report images are selected by the user through Android Photo Picker.
 - No advertising ID.
 - No analytics.
 - No advertising.
@@ -88,7 +102,7 @@ The source Android manifest declares no Android permissions in the current MVP.
 
 ## Retention And Deletion
 
-Client records currently support logical archive/restore. Catalog records currently support logical deactivate/restore. Quote records currently support logical archive/restore. Physical deletion inside the app is not implemented unless a future accepted phase adds it.
+Client records currently support logical archive/restore. Catalog records currently support logical deactivate/restore. Quote and report records currently support logical archive/restore. Physical deletion inside the app is not implemented unless a future accepted phase adds it.
 
 Users can remove local app data through Android system app settings or by uninstalling the app. Uninstalling or clearing app data may permanently remove local TechQuote data from the device.
 
@@ -102,7 +116,7 @@ Users are responsible for having authorization to enter third-party personal or 
 
 ## Future Changes
 
-Future report, cloud, account, analytics, payment, backup/import, photo, report PDF, or external integration features require policy updates before release. Any Google Play Data Safety declaration must match the app behavior, this policy, in-app disclosures, permissions, and dependency behavior.
+Future cloud, account, analytics, payment, backup/import, camera capture, direct image sharing, or external integration features require policy updates before release. Any Google Play Data Safety declaration must match the app behavior, this policy, in-app disclosures, permissions, and dependency behavior.
 
 ## Contact
 

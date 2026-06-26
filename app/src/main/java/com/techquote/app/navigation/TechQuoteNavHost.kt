@@ -23,6 +23,7 @@ import com.techquote.app.ui.legal.TermsOfUseRoute
 import com.techquote.app.ui.quotes.QuoteDetailRoute
 import com.techquote.app.ui.quotes.QuoteFormRoute
 import com.techquote.app.ui.quotes.QuotesListRoute
+import com.techquote.app.ui.reports.ReportDetailRoute
 import com.techquote.app.ui.reports.ReportFormRoute
 import com.techquote.app.ui.reports.ReportsListRoute
 import com.techquote.app.ui.settings.SettingsRoute
@@ -210,6 +211,7 @@ fun TechQuoteNavHost() {
                 onNavigateBack = { navController.navigateUp() },
                 onEditQuote = { quoteId -> navController.navigate(TechQuoteRoutes.quoteEdit(quoteId)) },
                 onDuplicatedQuote = { quoteId -> navController.navigate(TechQuoteRoutes.quoteDetail(quoteId)) },
+                onCreateReportFromQuote = { quoteId -> navController.navigate(TechQuoteRoutes.reportFromQuote(quoteId)) },
             )
         }
         composable(TechQuoteRoutes.QuoteForm) {
@@ -234,11 +236,61 @@ fun TechQuoteNavHost() {
         composable(TechQuoteRoutes.Reports) {
             ReportsListRoute(
                 onNavigateBack = { navController.navigateUp() },
+                onOpenReport = { reportId -> navController.navigate(TechQuoteRoutes.reportDetail(reportId)) },
                 onCreateReport = { navController.navigate(TechQuoteRoutes.ReportForm) },
+                onOpenArchived = { navController.navigate(TechQuoteRoutes.ReportsArchived) },
+            )
+        }
+        composable(TechQuoteRoutes.ReportsArchived) {
+            ReportsListRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onOpenReport = { reportId -> navController.navigate(TechQuoteRoutes.reportDetail(reportId)) },
+                onCreateReport = { navController.navigate(TechQuoteRoutes.ReportForm) },
+                onOpenArchived = { navController.navigateUp() },
+                showArchived = true,
+            )
+        }
+        composable(
+            route = TechQuoteRoutes.ReportDetail,
+            arguments = listOf(navArgument(TechQuoteRoutes.ReportIdArg) { type = NavType.StringType }),
+        ) {
+            ReportDetailRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onEditReport = { reportId -> navController.navigate(TechQuoteRoutes.reportEdit(reportId)) },
+                onDuplicatedReport = { reportId -> navController.navigate(TechQuoteRoutes.reportDetail(reportId)) },
             )
         }
         composable(TechQuoteRoutes.ReportForm) {
-            ReportFormRoute(onNavigateBack = { navController.navigateUp() })
+            ReportFormRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onSaved = { reportId ->
+                    navController.navigate(TechQuoteRoutes.reportDetail(reportId)) {
+                        popUpTo(TechQuoteRoutes.Reports)
+                    }
+                },
+            )
+        }
+        composable(
+            route = TechQuoteRoutes.ReportEdit,
+            arguments = listOf(navArgument(TechQuoteRoutes.ReportIdArg) { type = NavType.StringType }),
+        ) {
+            ReportFormRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onSaved = { reportId -> navController.navigate(TechQuoteRoutes.reportDetail(reportId)) },
+            )
+        }
+        composable(
+            route = TechQuoteRoutes.ReportFromQuote,
+            arguments = listOf(navArgument(TechQuoteRoutes.QuoteIdArg) { type = NavType.StringType }),
+        ) {
+            ReportFormRoute(
+                onNavigateBack = { navController.navigateUp() },
+                onSaved = { reportId ->
+                    navController.navigate(TechQuoteRoutes.reportDetail(reportId)) {
+                        popUpTo(TechQuoteRoutes.Quotes)
+                    }
+                },
+            )
         }
         composable(TechQuoteRoutes.Settings) {
             SettingsRoute(

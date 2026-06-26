@@ -4,7 +4,7 @@
 
 Draft only. This is not legal advice.
 
-Phase 1 added offline in-app screens for privacy policy and terms of use. Phase 2 added local client persistence. Phase 3 added catalog policy coverage. Phase 4 adds local quote policy coverage. Phase 5 adds local quote PDF generation, preview, SAF save-copy, and user-initiated FileProvider sharing/opening, but commercial publication still requires professional review.
+Phase 1 added offline in-app screens for privacy policy and terms of use. Phase 2 added local client persistence. Phase 3 added catalog policy coverage. Phase 4 adds local quote policy coverage. Phase 5 adds local quote PDF generation, preview, SAF save-copy, and user-initiated FileProvider sharing/opening. Phase 6 adds local technical reports, report image attachments, and report PDFs, but commercial publication still requires professional review.
 
 Current legal content is not approved for commercial publication.
 
@@ -57,3 +57,16 @@ Quote PDF work must not be considered publication-ready until privacy, terms, an
 - no invoice, receipt, tax filing, fiscal, accounting, legal, safety, or certification compliance claim;
 - the PDF disclaimer: `Este documento es un presupuesto de trabajo y no constituye una factura fiscal.`;
 - user responsibility for reviewing commercial terms and compliance before sharing or saving a PDF.
+
+## Phase 6 Legal Gate
+
+Technical report work must not be considered publication-ready until privacy, terms, and service/support policy drafts accurately cover:
+
+- local technical report storage;
+- client references, optional approved quote references, technician names, device/asset descriptions, problem, diagnosis, work performed, recommendations, and image attachments;
+- local report PDF generation, temporary app-cache PDF files, SAF save copies, and user-initiated sharing/opening;
+- no legal, tax, fiscal, safety, professional certification, digital signature, or certified technical compliance claim;
+- no backup/import guarantee;
+- no local encryption claim unless implemented;
+- archive/restore behavior versus physical deletion;
+- user responsibility for reviewing report content and compliance before sharing or saving a PDF.

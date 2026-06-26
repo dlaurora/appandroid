@@ -97,6 +97,7 @@ fun QuoteDetailRoute(
     onNavigateBack: () -> Unit,
     onEditQuote: (String) -> Unit,
     onDuplicatedQuote: (String) -> Unit,
+    onCreateReportFromQuote: (String) -> Unit,
     viewModel: QuoteDetailViewModel = hiltViewModel(),
     pdfViewModel: QuotePdfViewModel = hiltViewModel(),
 ) {
@@ -163,6 +164,7 @@ fun QuoteDetailRoute(
             uiState = uiState,
             onNavigateBack = onNavigateBack,
             onEditQuote = { uiState.quote?.let { onEditQuote(it.id) } },
+            onCreateReportFromQuote = { uiState.quote?.let { onCreateReportFromQuote(it.id) } },
             onChangeStatus = viewModel::changeStatus,
             onDuplicateQuote = viewModel::duplicate,
             onArchiveQuote = viewModel::archive,
@@ -331,6 +333,7 @@ fun QuoteDetailScreen(
     uiState: QuoteDetailUiState,
     onNavigateBack: () -> Unit,
     onEditQuote: () -> Unit,
+    onCreateReportFromQuote: () -> Unit,
     onChangeStatus: (QuoteStatus) -> Unit,
     onDuplicateQuote: () -> Unit,
     onArchiveQuote: () -> Unit,
@@ -447,6 +450,12 @@ fun QuoteDetailScreen(
                             enabled = !quote.isArchived,
                         )
                     }
+                    SecondaryButton(
+                        text = "Crear informe técnico",
+                        onClick = onCreateReportFromQuote,
+                        modifier = Modifier.fillMaxWidth(),
+                        enabled = quote.status == QuoteStatus.APPROVED && !quote.isArchived,
+                    )
                     if (quote.isArchived) {
                         PrimaryButton(
                             text = "Restaurar presupuesto",
@@ -1026,6 +1035,7 @@ private fun QuoteDetailScreenPreview() {
             uiState = QuoteDetailUiState(isLoading = false, quote = previewQuoteDetail()),
             onNavigateBack = {},
             onEditQuote = {},
+            onCreateReportFromQuote = {},
             onChangeStatus = {},
             onDuplicateQuote = {},
             onArchiveQuote = {},

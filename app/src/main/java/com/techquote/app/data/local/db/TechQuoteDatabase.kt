@@ -13,6 +13,10 @@ import com.techquote.app.data.local.quote.QuoteDao
 import com.techquote.app.data.local.quote.QuoteEntity
 import com.techquote.app.data.local.quote.QuoteLineItemEntity
 import com.techquote.app.data.local.quote.QuoteNumberCounterEntity
+import com.techquote.app.data.local.report.ReportAttachmentEntity
+import com.techquote.app.data.local.report.ReportNumberCounterEntity
+import com.techquote.app.data.local.report.TechnicalReportDao
+import com.techquote.app.data.local.report.TechnicalReportEntity
 
 @Database(
     entities = [
@@ -22,6 +26,9 @@ import com.techquote.app.data.local.quote.QuoteNumberCounterEntity
         QuoteEntity::class,
         QuoteLineItemEntity::class,
         QuoteNumberCounterEntity::class,
+        TechnicalReportEntity::class,
+        ReportAttachmentEntity::class,
+        ReportNumberCounterEntity::class,
     ],
     version = TechQuoteDatabase.Version,
     exportSchema = true,
@@ -30,9 +37,10 @@ abstract class TechQuoteDatabase : RoomDatabase() {
     abstract fun clientDao(): ClientDao
     abstract fun catalogDao(): CatalogDao
     abstract fun quoteDao(): QuoteDao
+    abstract fun technicalReportDao(): TechnicalReportDao
 
     companion object {
-        const val Version = 3
+        const val Version = 4
         const val DatabaseName = "techquote.db"
         val Migration1To2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
@@ -161,6 +169,83 @@ abstract class TechQuoteDatabase : RoomDatabase() {
                 )
             }
         }
-        val Migrations: Array<Migration> = arrayOf(Migration1To2, Migration2To3)
+        val Migration3To4 = object : Migration(3, 4) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `technical_reports` (
+                        `id` TEXT NOT NULL,
+                        `reportNumber` TEXT NOT NULL,
+                        `clientId` TEXT NOT NULL,
+                        `relatedQuoteId` TEXT,
+                        `title` TEXT NOT NULL,
+                        `serviceDate` TEXT NOT NULL,
+                        `technicianName` TEXT NOT NULL,
+                        `deviceOrAsset` TEXT NOT NULL,
+                        `problemReported` TEXT NOT NULL,
+                        `diagnosis` TEXT NOT NULL,
+                        `workPerformed` TEXT NOT NULL,
+                        `recommendations` TEXT NOT NULL,
+                        `status` TEXT NOT NULL,
+                        `createdAt` INTEGER NOT NULL,
+                        `updatedAt` INTEGER NOT NULL,
+                        `isArchived` INTEGER NOT NULL,
+                        `normalizedReportNumber` TEXT NOT NULL,
+                        `normalizedTitle` TEXT NOT NULL,
+                        `normalizedStatus` TEXT NOT NULL,
+                        `normalizedTechnicianName` TEXT NOT NULL,
+                        `normalizedDeviceOrAsset` TEXT NOT NULL,
+                        `normalizedProblemReported` TEXT NOT NULL,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`clientId`) REFERENCES `clients`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION,
+                        FOREIGN KEY(`relatedQuoteId`) REFERENCES `quotes`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_technical_reports_reportNumber` ON `technical_reports` (`reportNumber`)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_technical_reports_clientId` ON `technical_reports` (`clientId`)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_technical_reports_relatedQuoteId` ON `technical_reports` (`relatedQuoteId`)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_technical_reports_isArchived` ON `technical_reports` (`isArchived`)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_technical_reports_status` ON `technical_reports` (`status`)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_technical_reports_updatedAt` ON `technical_reports` (`updatedAt`)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_technical_reports_serviceDate` ON `technical_reports` (`serviceDate`)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_technical_reports_normalizedReportNumber` ON `technical_reports` (`normalizedReportNumber`)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_technical_reports_normalizedTitle` ON `technical_reports` (`normalizedTitle`)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_technical_reports_normalizedStatus` ON `technical_reports` (`normalizedStatus`)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_technical_reports_normalizedTechnicianName` ON `technical_reports` (`normalizedTechnicianName`)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_technical_reports_normalizedDeviceOrAsset` ON `technical_reports` (`normalizedDeviceOrAsset`)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_technical_reports_normalizedProblemReported` ON `technical_reports` (`normalizedProblemReported`)")
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `report_attachments` (
+                        `id` TEXT NOT NULL,
+                        `reportId` TEXT NOT NULL,
+                        `localUri` TEXT NOT NULL,
+                        `fileName` TEXT NOT NULL,
+                        `mimeType` TEXT NOT NULL,
+                        `createdAt` INTEGER NOT NULL,
+                        `displayOrder` INTEGER NOT NULL,
+                        `width` INTEGER,
+                        `height` INTEGER,
+                        `fileSizeBytes` INTEGER,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`reportId`) REFERENCES `technical_reports`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_report_attachments_reportId` ON `report_attachments` (`reportId`)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_report_attachments_displayOrder` ON `report_attachments` (`displayOrder`)")
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `report_number_counters` (
+                        `year` TEXT NOT NULL,
+                        `lastNumber` INTEGER NOT NULL,
+                        PRIMARY KEY(`year`)
+                    )
+                    """.trimIndent(),
+                )
+            }
+        }
+        val Migrations: Array<Migration> = arrayOf(Migration1To2, Migration2To3, Migration3To4)
     }
 }

@@ -2,7 +2,7 @@
 
 ## Current Review
 
-Phase 5 adds local quote PDF generation, preview, SAF save-copy, and user-initiated FileProvider sharing/opening on top of Phase 4 quotes. The app can create, edit, search, inspect, archive/restore clients; create, edit, search, inspect, deactivate/restore catalog items; create, edit draft, inspect, search, filter, sort, duplicate, change status, archive/restore quotes; and generate/share/save/open quote PDFs locally. Reports PDFs, photos, backup/import, telemetry, analytics, advertising SDK, login, sync, payments, fiscal invoicing, and external integrations remain out of scope.
+Phase 6 adds local technical reports, Photo Picker image attachments, private processed image storage, and local report PDF generation on top of Phase 5 quote PDFs. The app can create, edit, search, inspect, archive/restore clients; create, edit, search, inspect, deactivate/restore catalog items; create, edit draft, inspect, search, filter, sort, duplicate, change status, archive/restore quotes; generate/share/save/open quote PDFs locally; and create, edit draft, inspect, search, filter, sort, duplicate, change status, archive/restore reports with local report PDFs. Backup/import, telemetry, analytics, advertising SDK, login, sync, payments, fiscal invoicing, digital signature, camera capture, and external integrations remain out of scope.
 
 ## Findings
 
@@ -10,13 +10,13 @@ Phase 5 adds local quote PDF generation, preview, SAF save-copy, and user-initia
 | --- | --- | --- |
 | Manifest permissions | Pass | No `<uses-permission>` entries are declared in the Phase 5 source manifest |
 | Secrets | Pass | `local.properties`, signing file patterns, `.env`, caches, SDKs, and builds are ignored |
-| Storage | Pass with open risk | Client, catalog, and quote data are stored in app-private Room storage; business profile fields are stored in app-private preferences; temporary PDFs are stored in app-private cache; local database encryption remains open before production sensitive data |
-| Sharing | Pass with residual user-control risk | Quote PDFs are shared/opened only by explicit user action through a limited FileProvider `content://` URI with temporary read grants |
+| Storage | Pass with open risk | Client, catalog, quote, report, and attachment metadata are stored in app-private Room storage; report images are stored in app-private files; business profile fields are stored in app-private preferences; temporary PDFs are stored in app-private cache; local encryption remains open before production sensitive data |
+| Sharing | Pass with residual user-control risk | Quote/report PDFs are shared/opened only by explicit user action through a limited FileProvider `content://` URI with temporary read grants |
 | Logs | Pass | No production `Log.` usage found in app source |
 | Backup and transfer | Pass | Backup and data extraction rules exclude the Room database |
-| Dependencies | Pass for Phase 4 | Dependencies are pinned in the version catalog; lint reports only version-availability warnings |
-| Debug build | Pass for Phase 4 | `:app:assembleDebug` passed |
-| Release build | Pass for Phase 4 | `:app:assembleRelease` passed; release build type is non-debuggable with minify and resource shrinking enabled |
+| Dependencies | Pass for Phase 6 | Dependencies are pinned in the version catalog; AndroidX ExifInterface is added for local image orientation; lint reports only the known Kotlin/Compose version-availability warning |
+| Debug build | Pass for Phase 6 | `:app:assembleDebug` passed |
+| Release build | Pass for Phase 6 | `:app:assembleRelease` passed; release build type is non-debuggable with minify and resource shrinking enabled |
 | Mock data | Pass | Deterministic fictitious data only; no real names, emails, phone numbers, or addresses |
 | Legal screens | Draft only | Offline screens exist, but require professional review before publication |
 
@@ -46,7 +46,7 @@ Phase 5 adds local quote PDF generation, preview, SAF save-copy, and user-initia
 - `.\gradlew.bat :app:assembleDebug`: passed.
 - `.\gradlew.bat :app:assembleRelease`: passed.
 - `.\gradlew.bat test`: passed.
-- `.\gradlew.bat lint`: passed with 0 errors and 3 version-availability warnings.
+- `.\gradlew.bat lint`: passed with 0 errors and 1 known Kotlin/Compose version-availability warning.
 - `.\gradlew.bat :app:compileDebugAndroidTestKotlin`: passed.
 - Runtime instrumented tests and manual restart persistence verification were not executed because no emulator or physical device was connected.
 
@@ -124,3 +124,24 @@ Phase 5 adds local quote PDF generation, preview, SAF save-copy, and user-initia
 - `.\gradlew.bat lint`: passed with 0 errors and 1 known Kotlin version-availability warning.
 - `.\gradlew.bat :app:connectedDebugAndroidTest`: passed on `Pixel_10_Pro_XL(AVD) - 17` with 31 tests, 0 failures, 0 errors, 0 skipped.
 - Full details are tracked in `docs/qa/phase-5-verification.md`.
+
+## Phase 6 Review Notes
+
+- Source manifest remains free of `<uses-permission>` entries.
+- Room database schema version is `4` and migration `3 -> 4` creates technical report, attachment, and report number counter tables without destructive migration.
+- Report records are archived/restored logically; physical delete is intentionally not implemented in Phase 6.
+- Report image selection uses Android Photo Picker and requests no gallery, storage, or camera permissions.
+- Picker URIs are copied into app-private files as processed JPEGs; Room stores relative internal paths, not `file://` or external `content://` URIs.
+- Room database files and app-private `report-attachments/` files remain excluded from Android Auto Backup and Data Extraction Rules.
+- Report PDFs use the existing local generation, preview, SAF save-copy, and FileProvider `content://` share/open model.
+- No network, WebView, telemetry, analytics, crash reporter, ad SDK, payment SDK, fiscal invoice, digital signature, or external processor was added.
+- Report PDFs include the report disclaimer: `Este informe resume el trabajo técnico registrado por el usuario de la aplicación.`
+
+## Phase 6 Verification
+
+- `.\gradlew.bat :app:assembleDebug`: passed.
+- `.\gradlew.bat :app:assembleRelease`: passed.
+- `.\gradlew.bat test`: passed with 87 unit tests, 0 failures, 0 errors, 0 skipped.
+- `.\gradlew.bat lint`: passed with 0 errors and 3 version-availability warnings.
+- `.\gradlew.bat :app:connectedDebugAndroidTest`: passed on `Pixel_10_Pro_XL(AVD) - 17` with 35 tests, 0 failures, 0 errors, 0 skipped.
+- Full details are tracked in `docs/qa/phase-6-verification.md`.

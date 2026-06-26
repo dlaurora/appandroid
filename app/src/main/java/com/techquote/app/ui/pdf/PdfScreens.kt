@@ -39,14 +39,16 @@ fun QuotePdfActionsSection(
     onRegeneratePdf: () -> Unit,
     onDismissPdfError: () -> Unit,
     modifier: Modifier = Modifier,
+    title: String = "PDF del presupuesto",
+    subtitle: String = "Generación local, previsualización offline y salida segura con content://.",
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(TechQuoteDesign.spacing.small),
     ) {
         SectionHeader(
-            title = "PDF del presupuesto",
-            subtitle = "Generación local, previsualización offline y salida segura con content://.",
+            title = title,
+            subtitle = subtitle,
         )
         when {
             uiState.isGenerating -> PdfGenerationLoadingState()

@@ -6,6 +6,7 @@ import com.techquote.app.data.local.catalog.CatalogDao
 import com.techquote.app.data.local.client.ClientDao
 import com.techquote.app.data.local.db.TechQuoteDatabase
 import com.techquote.app.data.local.quote.QuoteDao
+import com.techquote.app.data.local.report.TechnicalReportDao
 import com.techquote.app.data.pdf.AndroidPdfFileStorage
 import com.techquote.app.data.pdf.AndroidPdfPreviewStateProvider
 import com.techquote.app.data.pdf.AndroidPdfShareManager
@@ -13,10 +14,14 @@ import com.techquote.app.data.pdf.AndroidQuotePdfGenerator
 import com.techquote.app.data.pdf.PdfFileStorage
 import com.techquote.app.data.pdf.PdfPreviewStateProvider
 import com.techquote.app.data.pdf.PdfShareManager
+import com.techquote.app.data.report.AndroidReportImageStorage
+import com.techquote.app.data.report.ReportImageStorage
+import com.techquote.app.data.report.pdf.AndroidReportPdfGenerator
 import com.techquote.app.data.repository.RoomClientRepository
 import com.techquote.app.data.repository.RoomProductCatalogRepository
 import com.techquote.app.data.repository.RoomQuoteRepository
 import com.techquote.app.data.repository.RoomServiceCatalogRepository
+import com.techquote.app.data.repository.RoomTechnicalReportRepository
 import com.techquote.app.data.settings.SharedPreferencesBusinessProfileRepository
 import com.techquote.app.domain.client.ClientRepository
 import com.techquote.app.domain.client.ClientValidator
@@ -28,6 +33,10 @@ import com.techquote.app.domain.quote.QuoteRepository
 import com.techquote.app.domain.quote.QuoteValidator
 import com.techquote.app.domain.pdf.QuotePdfDocumentFactory
 import com.techquote.app.domain.pdf.QuotePdfGenerator
+import com.techquote.app.domain.report.TechnicalReportRepository
+import com.techquote.app.domain.report.TechnicalReportValidator
+import com.techquote.app.domain.report.pdf.ReportPdfDocumentFactory
+import com.techquote.app.domain.report.pdf.ReportPdfGenerator
 import com.techquote.app.domain.settings.BusinessProfileRepository
 import dagger.Binds
 import dagger.Module
@@ -65,6 +74,10 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
+    abstract fun bindTechnicalReportRepository(repository: RoomTechnicalReportRepository): TechnicalReportRepository
+
+    @Binds
+    @Singleton
     abstract fun bindBusinessProfileRepository(repository: SharedPreferencesBusinessProfileRepository): BusinessProfileRepository
 
     @Binds
@@ -82,6 +95,14 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindPdfShareManager(manager: AndroidPdfShareManager): PdfShareManager
+
+    @Binds
+    @Singleton
+    abstract fun bindReportImageStorage(storage: AndroidReportImageStorage): ReportImageStorage
+
+    @Binds
+    @Singleton
+    abstract fun bindReportPdfGenerator(generator: AndroidReportPdfGenerator): ReportPdfGenerator
 }
 
 @Module
@@ -117,6 +138,11 @@ object DataModule {
     }
 
     @Provides
+    fun provideTechnicalReportDao(database: TechQuoteDatabase): TechnicalReportDao {
+        return database.technicalReportDao()
+    }
+
+    @Provides
     fun provideClientValidator(): ClientValidator {
         return ClientValidator()
     }
@@ -137,8 +163,18 @@ object DataModule {
     }
 
     @Provides
+    fun provideTechnicalReportValidator(): TechnicalReportValidator {
+        return TechnicalReportValidator()
+    }
+
+    @Provides
     fun provideQuotePdfDocumentFactory(): QuotePdfDocumentFactory {
         return QuotePdfDocumentFactory()
+    }
+
+    @Provides
+    fun provideReportPdfDocumentFactory(): ReportPdfDocumentFactory {
+        return ReportPdfDocumentFactory()
     }
 
     @Provides
@@ -156,6 +192,18 @@ object DataModule {
     @Provides
     @Named("quoteIdGenerator")
     fun provideQuoteIdGenerator(): () -> String {
+        return { UUID.randomUUID().toString() }
+    }
+
+    @Provides
+    @Named("reportIdGenerator")
+    fun provideReportIdGenerator(): () -> String {
+        return { UUID.randomUUID().toString() }
+    }
+
+    @Provides
+    @Named("reportAttachmentIdGenerator")
+    fun provideReportAttachmentIdGenerator(): () -> String {
         return { UUID.randomUUID().toString() }
     }
 

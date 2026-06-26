@@ -3,4 +3,7 @@
     <exclude
         domain="database"
         path="." />
+    <exclude
+        domain="file"
+        path="report-attachments/" />
 </full-backup-content>

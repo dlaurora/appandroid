@@ -25,6 +25,12 @@
 - [x] Phase 5 saves user copies only after explicit SAF destination selection.
 - [x] Phase 5 adds local business profile fields in app-private preferences for PDF header content.
 - [ ] Phase 5 generated PDFs can leave app control after explicit user share/save/open actions.
+- [x] Phase 6 stores technical reports and attachment metadata only in app-private Room storage.
+- [x] Phase 6 uses Android Photo Picker for image selection and adds no gallery, storage, or camera permissions.
+- [x] Phase 6 copies selected images into app-private files and stores only relative internal paths.
+- [x] Phase 6 generates report PDFs locally with Android platform APIs and no network transmission.
+- [ ] Phase 6 saved/shared/opened report PDFs can leave app control after explicit user action.
+- [ ] Phase 6 report image files are not encrypted at rest.
 - [x] In-app privacy policy draft is available offline.
 - [ ] Final privacy policy requires professional review before publication.
 - [ ] Google Play Data Safety draft must be revalidated before release.

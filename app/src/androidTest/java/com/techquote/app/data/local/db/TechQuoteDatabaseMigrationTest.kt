@@ -36,6 +36,15 @@ class TechQuoteDatabaseMigrationTest {
         helper.runMigrationsAndValidate(TEST_DB, 3, true, TechQuoteDatabase.Migration2To3)
     }
 
+    @Test
+    fun migratesFromVersionThreeToVersionFour() {
+        helper.createDatabase(TEST_DB, 3).apply {
+            close()
+        }
+
+        helper.runMigrationsAndValidate(TEST_DB, 4, true, TechQuoteDatabase.Migration3To4)
+    }
+
     private companion object {
         const val TEST_DB = "techquote-migration-test"
     }
